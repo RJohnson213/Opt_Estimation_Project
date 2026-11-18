@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ryan Johnson">
-<meta name="dcterms.date" content="2026-11-24">
 
-<title>Effects of Different Coordinate Frames on State Estimation</title>
+<title>Why Linear Covariance Fails in Catesian RIC (and How ROE Fixes it)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -76,23 +75,15 @@ window.Quarto = {
 
 </head>
 
-<body class="quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#the-visual-hook" id="toc-the-visual-hook" class="nav-link active" data-scroll-target="#the-visual-hook">The Visual Hook</a></li>
-  </ul>
-</nav>
-</div>
+
 <main class="content" id="quarto-document-content" tabindex="-1">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Effects of Different Coordinate Frames on State Estimation</h1>
+<h1 class="title">Why Linear Covariance Fails in Catesian RIC (and How ROE Fixes it)</h1>
 </div>
 
 
@@ -106,12 +97,6 @@ window.Quarto = {
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">November 24, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -121,15 +106,57 @@ window.Quarto = {
 </header>
 
 
-<section id="the-visual-hook" class="level2">
-<h2 class="anchored" data-anchor-id="the-visual-hook">The Visual Hook</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Standard linear covariance propagation updates <span class="math inline">\(P(t) = \Phi(t, t_0) P_0 \Phi(t, t_0)^T\)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/rtn_frame_propagation_animation.gif" class="img-fluid figure-img"></p>
-<figcaption>100-orbit RTN propagation showing radial divergence.</figcaption>
+<figcaption>90-orbit RIC propagation.</figcaption>
 </figure>
 </div>
+</section>
+<section id="linear-covariance-propagation" class="level2">
+<h2 class="anchored" data-anchor-id="linear-covariance-propagation">Linear Covariance Propagation</h2>
+</section>
+<section id="coordinate-geometry" class="level2">
+<h2 class="anchored" data-anchor-id="coordinate-geometry">Coordinate Geometry</h2>
+</section>
+<section id="clohessy-wiltshire-equations" class="level1">
+<h1>Clohessy Wiltshire Equations</h1>
+<p>The CW (Clohessy Wiltshire) equations assumes the Chief satellite is in a circular orbit. These equations are defined in the the RIC (Radial, In-Track, Cross-Track) frame which is fixed to the Chief satellite. The radial unit vector is defined by <a href="#eq-Radial" class="quarto-xref">Equation&nbsp;1</a>.</p>
+<p><span id="eq-Radial"><span class="math display">\[
+\hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
+\tag{1}\]</span></span></p>
+<p>Where is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in <a href="#eq-Cross" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p><span id="eq-Cross"><span class="math display">\[
+  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{||\mathbf{r_c}\times\mathbf{v_c}||}
+\tag{2}\]</span></span></p>
+<p>Where is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as</p>
+<p><span id="eq-IN"><span class="math display">\[
+  \hat{I} = \frac{\hat{C} \times \hat{R}}{||\hat{C} \times \hat{R}||}
+\tag{3}\]</span></span></p>
+</section>
+<section id="relative-orbital-elements" class="level1">
+<h1>Relative Orbital Elements</h1>
+<section id="simulation" class="level2">
+<h2 class="anchored" data-anchor-id="simulation">Simulation</h2>
+</section>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<p>Ullamco in tincidunt cupidatat fugiat fusce voluptate tempus, tempus risus enim nulla condimentum. Maecenas bibendum tempus commodo dapibus laoreet bibendum justo fermentum tortor felis condimentum, fusce reprehenderit ante magna risus. Vel a vel labore pellentesque euismod aliqua risus diam aliquet do, labore quam varius enim sit quis ac scelerisque euismod. Commodo fringilla eget eiusmod aliquet consectetur, amet sint felis fusce varius mollis reprehenderit et aliquet ullamco sapien. Sit fugiat eiusmod curabitur nisi ante ante in facilisis tellus velit eget morbi nullam, vestibulum lacus sem praesent. Ut nibh sit fringilla dolore commodo nostrud aenean varius porta nullam, pretium ullamcorper phasellus fusce.</p>
+<p>Fringilla ad cursus viverra irure, convallis risus risus imperdiet viverra at consequat. Lacinia leo justo commodo commodo ut etiam eget quisque, in quis sit ut faucibus. Amet egestas risus pariatur culpa, sapien eget etiam occaecat deserunt aute voluptate enim molestie libero. Condimentum nulla eget in do viverra praesent, eget cursus consequat scelerisque leo voluptate esse pariatur aenean condimentum tortor. Tempor augue eget varius curabitur id venenatis tellus nullam rhoncus etiam semper, dapibus anim donec est risus. Quam varius consectetur ante diam eget, nullam quam risus mollis egestas rutrum esse. Fusce aute pretium ut justo magna morbi fringilla ullamco vel odio.</p>
+<p>Nullam minim tellus esse orci aliquet justo in erat quis officia. Convallis adipiscing laoreet ut eros mollis morbi id porta ad, morbi deserunt elit posuere exercitation vel amet. Aute do varius risus imperdiet, aute tempus ultricies risus dapibus ac ipsum. Tincidunt qui reprehenderit auctor ultricies dapibus egestas faucibus nisi sem. Id vel ea incididunt est, rutrum massa tortor sed dolore nisi malesuada scelerisque ullamcorper. Justo praesent est augue irure turpis integer lorem ac pellentesque est consectetur laoreet, excepteur nulla ut minim in egestas magna. Metus euismod libero euismod fringilla consectetur, vestibulum risus tempor fermentum vestibulum morbi pretium etiam amet nec.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+</section>
 </section>
 
 </main>
