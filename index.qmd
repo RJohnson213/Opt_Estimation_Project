@@ -1,0 +1,16 @@
+---
+title: "Effects of Different Coordinate Frames on State Estimation"
+author: "Ryan Johnson"
+date: "2026-11-24"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+---
+
+## The Visual Hook
+
+Standard linear covariance propagation updates $P(t) = \Phi(t, t_0) P_0 \Phi(t, t_0)^T$.
+
+![100-orbit RTN propagation showing radial divergence.](images/rtn_frame_propagation_animation.gif)
