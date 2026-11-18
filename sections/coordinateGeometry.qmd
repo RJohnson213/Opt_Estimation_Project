@@ -1,0 +1,24 @@
+## Coordinate Geometry
+
+# Clohessy Wiltshire Equations
+
+The CW (Clohessy Wiltshire) equations assumes the Chief satellite is in a circular orbit. These equations are defined in the the RIC (Radial, In-Track, Cross-Track) 
+frame which is fixed to the Chief satellite. The radial unit vector is defined by @eq-Radial.
+
+$$
+\hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
+$$ {#eq-Radial}
+
+Where \mathbf{r} is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in @eq-Cross.
+
+$$
+  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{||\mathbf{r_c}\times\mathbf{v_c}||}
+$${#eq-Cross}
+
+Where \mathbf{v} is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as 
+
+$$
+  \hat{I} = \frac{\hat{C} \times \hat{R}}{||\hat{C} \times \hat{R}||}
+$${#eq-IN}
+
+# Relative Orbital Elements

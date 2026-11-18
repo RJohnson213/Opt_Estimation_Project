@@ -8,7 +8,7 @@
 
 <meta name="author" content="Ryan Johnson">
 
-<title>Why Linear Covariance Fails in Catesian RIC (and How ROE Fixes it)</title>
+<title>Why Linear Covariance Propagation Fails in Cartesian RIC</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -83,7 +83,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Why Linear Covariance Fails in Catesian RIC (and How ROE Fixes it)</h1>
+<h1 class="title">Why Linear Covariance Propagation Fails in Cartesian RIC</h1>
+<p class="subtitle lead">…and how Relative Orbital Elements fix it</p>
 </div>
 
 
@@ -108,13 +109,8 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Standard linear covariance propagation updates <span class="math inline">\(P(t) = \Phi(t, t_0) P_0 \Phi(t, t_0)^T\)</span>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rtn_frame_propagation_animation.gif" class="img-fluid figure-img"></p>
-<figcaption>90-orbit RIC propagation.</figcaption>
-</figure>
-</div>
+<p>Linear covariance propagation is a method for analyzing the evolution of uncertainty in a state vector over time. This blog post aims to demonstrate the importance of choosing the correct state representation for linear covariance propagation in environments involving relative spacecraft dynamics. Specifically, we will study two state representations: the first using Cartesian coordinates represented in the Radial, In-Track, Cross-Track (RIC) frame propagated with the Clohessy-Wiltshire (CW) linearized equations of motion, and the second taking an orbital parameterization approach using Relative Orbital Elements (ROEs).</p>
+<p>We will validate these methods through a Monte Carlo simulation using a nonlinear two-body dynamics propagator. It is important to perform these kinds of studies to validate spacecraft safety during a mission.</p>
 </section>
 <section id="linear-covariance-propagation" class="level2">
 <h2 class="anchored" data-anchor-id="linear-covariance-propagation">Linear Covariance Propagation</h2>
@@ -145,14 +141,11 @@ window.Quarto = {
 </section>
 <section id="setup" class="level1">
 <h1>Setup</h1>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 </section>
-<section id="results" class="level1">
-<h1>Results</h1>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
-<p>Ullamco in tincidunt cupidatat fugiat fusce voluptate tempus, tempus risus enim nulla condimentum. Maecenas bibendum tempus commodo dapibus laoreet bibendum justo fermentum tortor felis condimentum, fusce reprehenderit ante magna risus. Vel a vel labore pellentesque euismod aliqua risus diam aliquet do, labore quam varius enim sit quis ac scelerisque euismod. Commodo fringilla eget eiusmod aliquet consectetur, amet sint felis fusce varius mollis reprehenderit et aliquet ullamco sapien. Sit fugiat eiusmod curabitur nisi ante ante in facilisis tellus velit eget morbi nullam, vestibulum lacus sem praesent. Ut nibh sit fringilla dolore commodo nostrud aenean varius porta nullam, pretium ullamcorper phasellus fusce.</p>
-<p>Fringilla ad cursus viverra irure, convallis risus risus imperdiet viverra at consequat. Lacinia leo justo commodo commodo ut etiam eget quisque, in quis sit ut faucibus. Amet egestas risus pariatur culpa, sapien eget etiam occaecat deserunt aute voluptate enim molestie libero. Condimentum nulla eget in do viverra praesent, eget cursus consequat scelerisque leo voluptate esse pariatur aenean condimentum tortor. Tempor augue eget varius curabitur id venenatis tellus nullam rhoncus etiam semper, dapibus anim donec est risus. Quam varius consectetur ante diam eget, nullam quam risus mollis egestas rutrum esse. Fusce aute pretium ut justo magna morbi fringilla ullamco vel odio.</p>
-<p>Nullam minim tellus esse orci aliquet justo in erat quis officia. Convallis adipiscing laoreet ut eros mollis morbi id porta ad, morbi deserunt elit posuere exercitation vel amet. Aute do varius risus imperdiet, aute tempus ultricies risus dapibus ac ipsum. Tincidunt qui reprehenderit auctor ultricies dapibus egestas faucibus nisi sem. Id vel ea incididunt est, rutrum massa tortor sed dolore nisi malesuada scelerisque ullamcorper. Justo praesent est augue irure turpis integer lorem ac pellentesque est consectetur laoreet, excepteur nulla ut minim in egestas magna. Metus euismod libero euismod fringilla consectetur, vestibulum risus tempor fermentum vestibulum morbi pretium etiam amet nec.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>

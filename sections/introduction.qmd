@@ -1,0 +1,11 @@
+## Introduction
+
+Linear covariance propagation is a method for analyzing the evolution of uncertainty in a state vector over time.
+This blog post aims to demonstrate the importance of choosing the correct state representation for linear covariance propagation in environments involving relative spacecraft dynamics. 
+Specifically, we will study two state representations: the first using Cartesian coordinates represented in the Radial, In-Track, Cross-Track (RIC) frame 
+propagated with the Clohessy-Wiltshire (CW) linearized equations of motion, 
+and the second taking an orbital parameterization approach using Relative Orbital Elements (ROEs).
+
+We will validate these methods through a Monte Carlo simulation using a nonlinear two-body dynamics propagator. It is important to perform these kinds of studies to validate spacecraft safety
+during a mission.
+
