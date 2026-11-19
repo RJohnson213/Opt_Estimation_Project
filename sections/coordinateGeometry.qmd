@@ -55,6 +55,6 @@ $$
   6n(\cos(nt) - 1) & 0 & 0 & -2\sin(nt) & 4\cos(nt) - 3 & 0 \\ 
   0 & 0 & -n\sin(nt) & 0 & 0 & \cos(nt)
   \end{bmatrix}
-$$
+$$ {#eq-phi_cw}
 
 ### Relative Orbital Element STM
