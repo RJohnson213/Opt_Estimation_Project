@@ -42,12 +42,12 @@ $$
 \end{aligned}
 $$ {#eq-cw}
 
-Where $n = \sqrt{\mu / a_c ^ 3}$ is the mean motion of the Chief satellite with $\mu$ being Earth's gravitational parameter and $a_c$ is 
-the semi-major axis of the Chief, or Chief's radial distance from the center of the Earth. By analytically solving these equations and rearranging, we arrive 
+Where $n = \sqrt{\mu / a_c ^ 3}$ is the mean motion of the Chief satellite with $\mu$ being Earth's gravitational parameter, $a_c$ is 
+the semi-major axis of the Chief, or Chief's radial distance from the center of the Earth when in a circular orbit, and $x y z$ are equivalent to Radial, In-Track, and Cross-Track respectively. By analytically solving these equations and rearranging, we arrive 
 at the following state transition matrix.
 
 $$
-  \mathbf{\Phi}_{RIC} = \begin{bmatrix}
+  \mathbf{\Phi}_{RIC}(t) = \begin{bmatrix}
   4 - 3 \cos(nt) & 0 & 0 & \frac{1}{n}\sin(nt) & \frac{2}{n} (1 - \cos(nt)) & 0 \\
   6(\sin(nt) - nt) & 1 & 0 & \frac{2}{n} (\cos(nt) - 1) & \frac{1}{n} (4\sin(nt) - 3nt) & 0 \\
   0 & 0 & \cos(nt) & 0 & 0 & \frac{1}{n} \sin(nt) \\
@@ -57,6 +57,68 @@ $$
   \end{bmatrix}
 $$ {#eq-phi_cw}
 
-As we look at @eq-phi_cw there are two things worth noting
+Where the state vector has the form $\mathbf{X} = [R, I, C, \dot{R}, \dot{I}, \dot{C}]^T$. As we look at @eq-phi_cw, there are two things worth noting, the first is that 
+the Cross-Track component is completely decoupled from both the Radial and In-Track directions, and the second is that the In-Track has secular drift caused by the $nt$ term.
 
 ### Relative Orbital Element STM
+
+This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. 
+A spacecraft's orbit can be defined using six elements, the Semi-Major Axis ($a$), Eccentricity ($e$), Inclination ($i$), Right Ascension of the Ascending Node ($\Omega$), Argument of Perigee ($\omega$), and the True Anomaly ($\nu$). 
+These elements represent the shape, size, and orientation of the spacecraft's orbit in space. Just like how the Deputy's location in the RIC frame can be defined by some $\delta \mathbf{X}$, it can also be represented by some difference in orbital elements. 
+There are many different Relative Orbital Element sets but we will focus on the set developed by D'Amico, shown in @eq-ROE.<sup>[2](#ref-roe)</sup>
+
+$$
+\delta \boldsymbol{\alpha} = 
+  \begin{bmatrix}
+      \delta a \\
+      \delta \lambda \\
+      \delta e_x \\
+      \delta e_y \\
+      \delta i_x \\
+      \delta i_y
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+      (a_d - a_c) / a_c \\
+      (u_d - u_c) + (\Omega_d - \Omega_c) \cos i_c \\
+      e_{x,d} - e_{x,c} \\
+      e_{y,d} - e_{y,c} \\
+      i_d - i_c \\
+      (\Omega_d - \Omega_c) \sin i_c
+  \end{bmatrix}
+$${#eq-ROE}
+
+Where $u$ represents the mean Argument of Latitude which is defined as $u = M + \omega$, with $M$ being equivalent to $\nu$ in a circular orbit, and the subscript $x,y$ are used to represent the x and y components of the Eccentricity vector. 
+D'Amico takes this approach one step farther by dimensionalizing these elements by $a_c$.
+
+$$
+  a_c \delta \boldsymbol{\alpha} 
+  = 
+  \begin{bmatrix}
+      a_c \delta a \\
+      a_c \delta \lambda \\
+      a_c \delta e_x \\
+      a_c \delta e_y \\
+      a_c \delta i_x \\
+      a_c \delta i_y
+  \end{bmatrix}
+$${#eq-dim_roe}
+
+@eq-dim_roe represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.<sup>[3](#ref_roe_stm)</sup> 
+This formulation was derived such that it acounts for $J_2$ perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
+the $J_2$ terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in @eq-ROE_stm.
+
+$$
+\mathbf{\Phi}_{ROE}(t) = \begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 \\
+-\frac{3}{2}nt & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & \cos(nt) & -\sin(nt) & 0 & 0 \\
+0 & 0 & \sin(nt) & \cos(nt) & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1
+\end{bmatrix}
+$$ {#eq-ROE_stm}
+
+In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. 
+A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a cartesian framework will result in large deviations 
+as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry. 

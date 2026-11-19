@@ -165,9 +165,9 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 \ddot{z} &amp;= -n^2 z
 \end{aligned}
 \tag{5}\]</span></span></p>
-<p>Where <span class="math inline">\(n = \sqrt{\mu / a_c ^ 3}\)</span> is the mean motion of the Chief satellite with <span class="math inline">\(\mu\)</span> being Earth’s gravitational parameter and <span class="math inline">\(a_c\)</span> is the semi-major axis of the Chief, or Chief’s radial distance from the center of the Earth. By analytically solving these equations and rearranging, we arrive at the following state transition matrix.</p>
+<p>Where <span class="math inline">\(n = \sqrt{\mu / a_c ^ 3}\)</span> is the mean motion of the Chief satellite with <span class="math inline">\(\mu\)</span> being Earth’s gravitational parameter, <span class="math inline">\(a_c\)</span> is the semi-major axis of the Chief, or Chief’s radial distance from the center of the Earth when in a circular orbit, and <span class="math inline">\(x y z\)</span> are equivalent to Radial, In-Track, and Cross-Track respectively. By analytically solving these equations and rearranging, we arrive at the following state transition matrix.</p>
 <p><span id="eq-phi_cw"><span class="math display">\[
-  \mathbf{\Phi}_{RIC} = \begin{bmatrix}
+  \mathbf{\Phi}_{RIC}(t) = \begin{bmatrix}
   4 - 3 \cos(nt) &amp; 0 &amp; 0 &amp; \frac{1}{n}\sin(nt) &amp; \frac{2}{n} (1 - \cos(nt)) &amp; 0 \\
   6(\sin(nt) - nt) &amp; 1 &amp; 0 &amp; \frac{2}{n} (\cos(nt) - 1) &amp; \frac{1}{n} (4\sin(nt) - 3nt) &amp; 0 \\
   0 &amp; 0 &amp; \cos(nt) &amp; 0 &amp; 0 &amp; \frac{1}{n} \sin(nt) \\
@@ -176,10 +176,56 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
   0 &amp; 0 &amp; -n\sin(nt) &amp; 0 &amp; 0 &amp; \cos(nt)
   \end{bmatrix}
 \tag{6}\]</span></span></p>
-<p>As we look at <a href="#eq-phi_cw" class="quarto-xref">Equation&nbsp;6</a> there are two things worth noting</p>
+<p>Where the state vector has the form <span class="math inline">\(\mathbf{X} = [R, I, C, \dot{R}, \dot{I}, \dot{C}]^T\)</span>. As we look at <a href="#eq-phi_cw" class="quarto-xref">Equation&nbsp;6</a>, there are two things worth noting, the first is that the Cross-Track component is completely decoupled from both the Radial and In-Track directions, and the second is that the In-Track has secular drift caused by the <span class="math inline">\(nt\)</span> term.</p>
 </section>
 <section id="relative-orbital-element-stm" class="level3">
 <h3 class="anchored" data-anchor-id="relative-orbital-element-stm">Relative Orbital Element STM</h3>
+<p>This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. A spacecraft’s orbit can be defined using six elements, the Semi-Major Axis (<span class="math inline">\(a\)</span>), Eccentricity (<span class="math inline">\(e\)</span>), Inclination (<span class="math inline">\(i\)</span>), Right Ascension of the Ascending Node (<span class="math inline">\(\Omega\)</span>), Argument of Perigee (<span class="math inline">\(\omega\)</span>), and the True Anomaly (<span class="math inline">\(\nu\)</span>). These elements represent the shape, size, and orientation of the spacecraft’s orbit in space. Just like how the Deputy’s location in the RIC frame can be defined by some <span class="math inline">\(\delta \mathbf{X}\)</span>, it can also be represented by some difference in orbital elements. There are many different Relative Orbital Element sets but we will focus on the set developed by D’Amico, shown in <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a>.<sup><a href="#ref-roe">2</a></sup></p>
+<p><span id="eq-ROE"><span class="math display">\[
+\delta \boldsymbol{\alpha} =
+  \begin{bmatrix}
+      \delta a \\
+      \delta \lambda \\
+      \delta e_x \\
+      \delta e_y \\
+      \delta i_x \\
+      \delta i_y
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+      (a_d - a_c) / a_c \\
+      (u_d - u_c) + (\Omega_d - \Omega_c) \cos i_c \\
+      e_{x,d} - e_{x,c} \\
+      e_{y,d} - e_{y,c} \\
+      i_d - i_c \\
+      (\Omega_d - \Omega_c) \sin i_c
+  \end{bmatrix}
+\tag{7}\]</span></span></p>
+<p>Where <span class="math inline">\(u\)</span> represents the mean Argument of Latitude which is defined as <span class="math inline">\(u = M + \omega\)</span>, with <span class="math inline">\(M\)</span> being equivalent to <span class="math inline">\(\nu\)</span> in a circular orbit, and the subscript <span class="math inline">\(x,y\)</span> are used to represent the x and y components of the Eccentricity vector. D’Amico takes this approach one step farther by dimensionalizing these elements by <span class="math inline">\(a_c\)</span>.</p>
+<p><span id="eq-dim_roe"><span class="math display">\[
+  a_c \delta \boldsymbol{\alpha}
+  =
+  \begin{bmatrix}
+      a_c \delta a \\
+      a_c \delta \lambda \\
+      a_c \delta e_x \\
+      a_c \delta e_y \\
+      a_c \delta i_x \\
+      a_c \delta i_y
+  \end{bmatrix}
+\tag{8}\]</span></span></p>
+<p><a href="#eq-dim_roe" class="quarto-xref">Equation&nbsp;8</a> represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> as developed by D’Amico.<sup><a href="#ref_roe_stm">3</a></sup> This formulation was derived such that it acounts for <span class="math inline">\(J_2\)</span> perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set the <span class="math inline">\(J_2\)</span> terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>.</p>
+<p><span id="eq-ROE_stm"><span class="math display">\[
+\mathbf{\Phi}_{ROE}(t) = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+-\frac{3}{2}nt &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; \cos(nt) &amp; -\sin(nt) &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; \sin(nt) &amp; \cos(nt) &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\tag{9}\]</span></span></p>
+<p>In <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a cartesian framework will result in large deviations as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry.</p>
 </section>
 </section>
 <section id="simulation" class="level2">
@@ -207,8 +253,8 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 <div style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;">
 <ol type="1">
 <li><span id="ref-cw"></span>Clohessy, W. H., &amp; Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. <em>Journal of the Aerospace Sciences</em>, 27(9), 653–658. <a href="https://doi.org/10.2514/8.8704">https://doi.org/10.2514/8.8704</a></li>
-<li>Carpenter, J. R., &amp; D’Souza, C. N. (2018). <em>Navigation Filter Best Practices</em>. NASA/TP-2018-219822.</li>
-<li>D’Amico, S. (2010). <em>Autonomous Formation Flying in Low Earth Orbit</em>. PhD Thesis, TU Delft.</li>
+<li><span id="ref_roe"></span>D’Amico, S. (2010). <em>Autonomous Formation Flying in Low Earth Orbit</em>. PhD Thesis, TU Delft.</li>
+<li><span id="ref_roe_stm"></span>Koenig, A. W., Guffanti, T., &amp; D’Amico, S. (2017). New state transition matrices for spacecraft relative motion in perturbed orbits. <em>Journal of Guidance, Control, and Dynamics</em>, 40(7), 1749–1768. <a href="https://doi.org/10.2514/1.G002409">https://doi.org/10.2514/1.G002409</a></li>
 </ol>
 </div>
 </section>
