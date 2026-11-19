@@ -21,4 +21,10 @@ format:
 
 {{< include sections/takeaways.qmd >}}
 
-{{< include sections/references.qmd >}}
+---
+
+::: {style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;"}
+1. Maybeck, P. S. (1979). *Stochastic Models, Estimation, and Control* (Vol. 1). Academic Press.
+2. Carpenter, J. R., & D'Souza, C. N. (2018). *Navigation Filter Best Practices*. NASA/TP-2018-219822.
+3. D'Amico, S. (2010). *Autonomous Formation Flying in Low Earth Orbit*. PhD Thesis, TU Delft.
+:::
