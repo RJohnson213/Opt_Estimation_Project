@@ -31,8 +31,30 @@ $${#eq-IN}
 
 By assuming that the Chief satellite is in a circular orbit, and that the distance 
 between the Chief and Deputy is much smaller than the Chief's orbital radius ($||\delta \mathbf{r}|| << \mathbf{r}_c$),
-Clohessy and Wiltshire formulated the following equations.<sup>[1](#ref-cw)</sup>
+Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to 
+the Chief.<sup>[1](#ref-cw)</sup>
 
-The CW (Clohessy Wiltshire) equations assume the Chief satellite is in a circular orbit. 
+$$
+\begin{aligned}
+\ddot{x} &= 3n^2 x + 2n \dot{y} \\
+\ddot{y} &= -2n \dot{x} \\
+\ddot{z} &= -n^2 z
+\end{aligned}
+$$ {#eq-cw}
+
+Where $n = \sqrt{\mu / a_c ^ 3}$ is the mean motion of the Chief satellite with $\mu$ being earths gravitational parameter and $a_c$ is 
+the semi-major axis of the Chief, or Chiefs radial distance from the center of the earth. By analytically solving these equations and rearranging, we arrive 
+at the following state transition matrix.
+
+$$
+  \mathbf{\Phi}_{RIC} = \begin{bmatrix}
+  4 - 3 \cos(nt) & 0 & 0 & \frac{1}{n}\sin(nt) & \frac{2}{n} (1 - \cos(nt)) & 0 \\
+  6(\sin(nt) - nt) & 1 & 0 & \frac{2}{n} (\cos(nt) - 1) & \frac{1}{n} (4\sin(nt) - 3nt) & 0 \\
+  0 & 0 & \cos(nt) & 0 & 0 & \frac{1}{n} \sin(nt) \\
+  3n\sin(nt) & 0 & 0 & \cos(nt) & 2\sin(nt) & 0 \\
+  6n(\cos(nt) - 1) & 0 & 0 & -2\sin(nt) & 4\cos(nt) - 3 & 0 \\ 
+  0 & 0 & -n\sin(nt) & 0 & 0 & \cos(nt)
+  \end{bmatrix}
+$$
 
 ### Relative Orbital Element STM

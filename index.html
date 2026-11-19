@@ -157,8 +157,25 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 <p><span id="eq-IN"><span class="math display">\[
   \hat{I} = \hat{C} \times \hat{R}
 \tag{4}\]</span></span></p>
-<p>By assuming that the Chief satellite is in a circular orbit, and that the distance between the Chief and Deputy is much smaller than the Chief’s orbital radius (<span class="math inline">\(||\delta \mathbf{r}|| &lt;&lt; \mathbf{r}_c\)</span>), Clohessy and Wiltshire formulated the following equations.<sup><a href="#ref-cw">1</a></sup></p>
-<p>The CW (Clohessy Wiltshire) equations assume the Chief satellite is in a circular orbit.</p>
+<p>By assuming that the Chief satellite is in a circular orbit, and that the distance between the Chief and Deputy is much smaller than the Chief’s orbital radius (<span class="math inline">\(||\delta \mathbf{r}|| &lt;&lt; \mathbf{r}_c\)</span>), Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to the Chief.<sup><a href="#ref-cw">1</a></sup></p>
+<p><span id="eq-cw"><span class="math display">\[
+\begin{aligned}
+\ddot{x} &amp;= 3n^2 x + 2n \dot{y} \\
+\ddot{y} &amp;= -2n \dot{x} \\
+\ddot{z} &amp;= -n^2 z
+\end{aligned}
+\tag{5}\]</span></span></p>
+<p>Where <span class="math inline">\(n = \sqrt{\mu / a_c ^ 3}\)</span> is the mean motion of the Chief satellite with <span class="math inline">\(\mu\)</span> being earths gravitational parameter and <span class="math inline">\(a_c\)</span> is the semi-major axis of the Chief, or Chiefs radial distance from the center of the earth. By analytically solving these equations and rearranging, we arrive at the following state transition matrix.</p>
+<p><span class="math display">\[
+  \mathbf{\Phi}_{RIC} = \begin{bmatrix}
+  4 - 3 \cos(nt) &amp; 0 &amp; 0 &amp; \frac{1}{n}\sin(nt) &amp; \frac{2}{n} (1 - \cos(nt)) &amp; 0 \\
+  6(\sin(nt) - nt) &amp; 1 &amp; 0 &amp; \frac{2}{n} (\cos(nt) - 1) &amp; \frac{1}{n} (4\sin(nt) - 3nt) &amp; 0 \\
+  0 &amp; 0 &amp; \cos(nt) &amp; 0 &amp; 0 &amp; \frac{1}{n} \sin(nt) \\
+  3n\sin(nt) &amp; 0 &amp; 0 &amp; \cos(nt) &amp; 2\sin(nt) &amp; 0 \\
+  6n(\cos(nt) - 1) &amp; 0 &amp; 0 &amp; -2\sin(nt) &amp; 4\cos(nt) - 3 &amp; 0 \\
+  0 &amp; 0 &amp; -n\sin(nt) &amp; 0 &amp; 0 &amp; \cos(nt)
+  \end{bmatrix}
+\]</span></p>
 </section>
 <section id="relative-orbital-element-stm" class="level3">
 <h3 class="anchored" data-anchor-id="relative-orbital-element-stm">Relative Orbital Element STM</h3>
