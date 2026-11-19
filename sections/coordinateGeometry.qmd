@@ -25,6 +25,8 @@ $$
   \hat{I} = \hat{C} \times \hat{R}
 $${#eq-IN}
 
+![Chief-Deputy RIC Frame Geometry. *Diagram generated with Gemini.*](Images/RIC_frame_CW.jpg){#fig-RIC_frame width="80%" fig-align="center"}
+
 By assuming that the Chief satellite is in a circular orbit, and that the distance 
 between the Chief and Deputy is much smaller than the Chief's orbital radius ($||\delta \mathbf{r}|| << \mathbf{r}_c$),
 Clohessy and Wiltshire formulated the following equations.<sup>[1](#ref-cw)</sup>
