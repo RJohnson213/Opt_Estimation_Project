@@ -7,7 +7,11 @@ framework using CW-equations and an orbital parameterization using ROEs.
 ### Clohessy Wiltshire STM
 
 To understand how $\mathbf{\Phi}$ is formed using the CW-equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is 
-fixed to the Chief satellite.  The radial unit vector is defined by @eq-Radial.
+fixed to the Chief satellite as shown in @fig-RIC_frame.
+
+![Chief-Deputy RIC Frame Geometry. *Diagram generated with Gemini.*](images/RIC_frame_CW.jpg){#fig-RIC_frame width="80%" fig-align="center"}
+
+The radial unit vector is defined by @eq-Radial.
 
 $$
 \hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
@@ -24,8 +28,6 @@ Where $\mathbf{v}$ is the satellites velocity vector in the ECI frame. With the 
 $$
   \hat{I} = \hat{C} \times \hat{R}
 $${#eq-IN}
-
-![Chief-Deputy RIC Frame Geometry. *Diagram generated with Gemini.*](Images/RIC_frame_CW.jpg){#fig-RIC_frame width="80%" fig-align="center"}
 
 By assuming that the Chief satellite is in a circular orbit, and that the distance 
 between the Chief and Deputy is much smaller than the Chief's orbital radius ($||\delta \mathbf{r}|| << \mathbf{r}_c$),
