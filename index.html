@@ -157,7 +157,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 <p><span id="eq-IN"><span class="math display">\[
   \hat{I} = \hat{C} \times \hat{R}
 \tag{4}\]</span></span></p>
-<p>By assuming that the Chief satellite is in a circular orbit, and that the distance between the Chief and Deputy is much smaller than the Chief’s orbital radius (<span class="math inline">\(\|\delta \mathbf{r}\| \ll \|\mathbf{r}_c\|\)</span>), Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to the Chief.<sup><a href="#ref-cw">1</a></sup></p>
+<p>By assuming that the Chief satellite is in a circular orbit, and that the distance between the Chief and Deputy is much smaller than the Chief’s orbital radius (<span class="math inline">\(\|\delta \mathbf{r}\| \ll \|\mathbf{r}_c\|\)</span>), Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to the Chief.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p><span id="eq-cw"><span class="math display">\[
 \begin{aligned}
 \ddot{x} &amp;= 3n^2 x + 2n \dot{y} \\
@@ -180,7 +180,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 </section>
 <section id="relative-orbital-element-stm" class="level3">
 <h3 class="anchored" data-anchor-id="relative-orbital-element-stm">Relative Orbital Element STM</h3>
-<p>This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. A spacecraft’s orbit can be defined using six elements, the Semi-Major Axis (<span class="math inline">\(a\)</span>), Eccentricity (<span class="math inline">\(e\)</span>), Inclination (<span class="math inline">\(i\)</span>), Right Ascension of the Ascending Node (<span class="math inline">\(\Omega\)</span>), Argument of Perigee (<span class="math inline">\(\omega\)</span>), and the True Anomaly (<span class="math inline">\(\nu\)</span>). These elements represent the shape, size, and orientation of the spacecraft’s orbit in space. Just like how the Deputy’s location in the RIC frame can be defined by some <span class="math inline">\(\delta \mathbf{X}\)</span>, it can also be represented by some difference in orbital elements. There are many different Relative Orbital Element sets but we will focus on the set developed by D’Amico, shown in <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a>.<sup><a href="#ref-roe">2</a></sup></p>
+<p>This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. A spacecraft’s orbit can be defined using six elements, the Semi-Major Axis (<span class="math inline">\(a\)</span>), Eccentricity (<span class="math inline">\(e\)</span>), Inclination (<span class="math inline">\(i\)</span>), Right Ascension of the Ascending Node (<span class="math inline">\(\Omega\)</span>), Argument of Perigee (<span class="math inline">\(\omega\)</span>), and the True Anomaly (<span class="math inline">\(\nu\)</span>). These elements represent the shape, size, and orientation of the spacecraft’s orbit in space. Just like how the Deputy’s location in the RIC frame can be defined by some <span class="math inline">\(\delta \mathbf{X}\)</span>, it can also be represented by some difference in orbital elements. There are many different Relative Orbital Element sets but we will focus on the set developed by D’Amico, shown in <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p><span id="eq-ROE"><span class="math display">\[
 \delta \boldsymbol{\alpha} =
   \begin{bmatrix}
@@ -214,7 +214,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
       a_c \delta i_y
   \end{bmatrix}
 \tag{8}\]</span></span></p>
-<p><a href="#eq-dim_roe" class="quarto-xref">Equation&nbsp;8</a> represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> as developed by D’Amico.<sup><a href="#ref_roe_stm">3</a></sup> This formulation was derived such that it acounts for <span class="math inline">\(J_2\)</span> perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set the <span class="math inline">\(J_2\)</span> terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>.</p>
+<p><a href="#eq-dim_roe" class="quarto-xref">Equation&nbsp;8</a> represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> as developed by D’Amico.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This formulation was derived such that it accounts for <span class="math inline">\(J_2\)</span> perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set the <span class="math inline">\(J_2\)</span> terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>.</p>
 <p><span id="eq-ROE_stm"><span class="math display">\[
 \mathbf{\Phi}_{ROE}(t) = \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
@@ -225,7 +225,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 \tag{9}\]</span></span></p>
-<p>In <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a cartesian framework will result in large deviations as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry.</p>
+<p>In <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry.</p>
 </section>
 </section>
 <section id="simulation" class="level2">
@@ -251,15 +251,19 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 <p>here</p>
 <hr>
 <div style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;">
-<ol type="1">
-<li><span id="ref-cw"></span>Clohessy, W. H., &amp; Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. <em>Journal of the Aerospace Sciences</em>, 27(9), 653–658. <a href="https://doi.org/10.2514/8.8704">https://doi.org/10.2514/8.8704</a></li>
-<li><span id="ref_roe"></span>D’Amico, S. (2010). <em>Autonomous Formation Flying in Low Earth Orbit</em>. PhD Thesis, TU Delft.</li>
-<li><span id="ref_roe_stm"></span>Koenig, A. W., Guffanti, T., &amp; D’Amico, S. (2017). New state transition matrices for spacecraft relative motion in perturbed orbits. <em>Journal of Guidance, Control, and Dynamics</em>, 40(7), 1749–1768. <a href="https://doi.org/10.2514/1.G002409">https://doi.org/10.2514/1.G002409</a></li>
-</ol>
+
 </div>
 </section>
 
-</main>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Clohessy, W. H., &amp; Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. <em>Journal of the Aerospace Sciences</em>, 27(9), 653–658. <a href="https://doi.org/10.2514/8.8704" class="uri">https://doi.org/10.2514/8.8704</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D’Amico, S. (2010). <em>Autonomous Formation Flying in Low Earth Orbit</em> [Ph.D.&nbsp;thesis, Delft University of Technology].<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Koenig, A. W., Guffanti, T., &amp; D’Amico, S. (2017). New state transition matrices for spacecraft relative motion in perturbed orbits. <em>Journal of Guidance, Control, and Dynamics</em>, 40(7), 1749–1768. <a href="https://doi.org/10.2514/1.G002409" class="uri">https://doi.org/10.2514/1.G002409</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

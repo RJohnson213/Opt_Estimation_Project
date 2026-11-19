@@ -32,7 +32,7 @@ $${#eq-IN}
 By assuming that the Chief satellite is in a circular orbit, and that the distance 
 between the Chief and Deputy is much smaller than the Chief's orbital radius ($\|\delta \mathbf{r}\| \ll \|\mathbf{r}_c\|$),
 Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to 
-the Chief.<sup>[1](#ref-cw)</sup>
+the Chief.[^1]
 
 $$
 \begin{aligned}
@@ -65,7 +65,7 @@ the Cross-Track component is completely decoupled from both the Radial and In-Tr
 This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. 
 A spacecraft's orbit can be defined using six elements, the Semi-Major Axis ($a$), Eccentricity ($e$), Inclination ($i$), Right Ascension of the Ascending Node ($\Omega$), Argument of Perigee ($\omega$), and the True Anomaly ($\nu$). 
 These elements represent the shape, size, and orientation of the spacecraft's orbit in space. Just like how the Deputy's location in the RIC frame can be defined by some $\delta \mathbf{X}$, it can also be represented by some difference in orbital elements. 
-There are many different Relative Orbital Element sets but we will focus on the set developed by D'Amico, shown in @eq-ROE.<sup>[2](#ref-roe)</sup>
+There are many different Relative Orbital Element sets but we will focus on the set developed by D'Amico, shown in @eq-ROE.[^2]
 
 $$
 \delta \boldsymbol{\alpha} = 
@@ -104,8 +104,8 @@ $$
   \end{bmatrix}
 $${#eq-dim_roe}
 
-@eq-dim_roe represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.<sup>[3](#ref_roe_stm)</sup> 
-This formulation was derived such that it acounts for $J_2$ perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
+@eq-dim_roe represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.[^3]
+This formulation was derived such that it accounts for $J_2$ perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
 the $J_2$ terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in @eq-ROE_stm.
 
 $$
@@ -120,5 +120,5 @@ $$
 $$ {#eq-ROE_stm}
 
 In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. 
-A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a cartesian framework will result in large deviations 
+A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations 
 as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry. 

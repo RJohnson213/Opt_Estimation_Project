@@ -24,7 +24,7 @@ format:
 ---
 
 ::: {style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;"}
-1. <span id="ref-cw"></span>Clohessy, W. H., & Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. *Journal of the Aerospace Sciences*, 27(9), 653–658. [https://doi.org/10.2514/8.8704](https://doi.org/10.2514/8.8704)
-2. <span id="ref_roe"></span>D'Amico, S. (2010). *Autonomous Formation Flying in Low Earth Orbit*. PhD Thesis, TU Delft.
-3. <span id="ref_roe_stm"></span>Koenig, A. W., Guffanti, T., & D’Amico, S. (2017). New state transition matrices for spacecraft relative motion in perturbed orbits. *Journal of Guidance, Control, and Dynamics*, 40(7), 1749–1768. [https://doi.org/10.2514/1.G002409](https://doi.org/10.2514/1.G002409)
+[^1]: Clohessy, W. H., & Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. *Journal of the Aerospace Sciences*, 27(9), 653–658. <https://doi.org/10.2514/8.8704>
+[^2]: D’Amico, S. (2010). *Autonomous Formation Flying in Low Earth Orbit* [Ph.D. thesis, Delft University of Technology].
+[^3]: Koenig, A. W., Guffanti, T., & D’Amico, S. (2017). New state transition matrices for spacecraft relative motion in perturbed orbits. *Journal of Guidance, Control, and Dynamics*, 40(7), 1749–1768. <https://doi.org/10.2514/1.G002409>
 :::
