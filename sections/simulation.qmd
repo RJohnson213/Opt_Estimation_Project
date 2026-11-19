@@ -1,8 +1,19 @@
 ## Simulation
 
-### Environment
+Let's now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows the user 
+to model satellites in orbit using the two-body dynamics equation shown below.
 
-### Monte Carlo setup
+$$
+\ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r}
+$${#eq-two_body}
+
+By building some helper functions, we can allow two satellites to be propagated simultaneously for formation flight. This propagator will represent the 
+truth model, and will be used for the Monte Carlo simulation discussed below. Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate 
+the covariance forward in time, representing the linear covariance propagation. 
+
+The Monte Carlo simulation will involve sampling N initial Deputy states (e.g. 500) from the distribution $\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_0, \mathbf{P}_0)$ and then 
+propagate them forward in time using the truth model for some number of orbits. $\mathbf{x}_0$ and $\mathbf{P}_0$ will then be propagated forward using @eq-lincov. 
+
 
 
 

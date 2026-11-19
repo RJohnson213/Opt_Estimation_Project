@@ -230,12 +230,12 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 </section>
 <section id="simulation" class="level2">
 <h2 class="anchored" data-anchor-id="simulation">Simulation</h2>
-<section id="environment" class="level3">
-<h3 class="anchored" data-anchor-id="environment">Environment</h3>
-</section>
-<section id="monte-carlo-setup" class="level3">
-<h3 class="anchored" data-anchor-id="monte-carlo-setup">Monte Carlo setup</h3>
-</section>
+<p>Let’s now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows the user to model satellites in orbit using the two-body dynamics equation shown below.</p>
+<p><span id="eq-two_body"><span class="math display">\[
+\ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r}
+\tag{10}\]</span></span></p>
+<p>By building some helper functions, we can allow two satellites to be propagated simultaneously for formation flight. This propagator will represent the truth model, and will be used for the Monte Carlo simulation discussed below. Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation.</p>
+<p>The Monte Carlo simulation will involve sampling N initial Deputy states (e.g.&nbsp;500) from the distribution <span class="math inline">\(\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_0, \mathbf{P}_0)\)</span> and then propagate them forward in time using the truth model for some number of orbits. <span class="math inline">\(\mathbf{x}_0\)</span> and <span class="math inline">\(\mathbf{P}_0\)</span> will then be propagated forward using <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a>.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
