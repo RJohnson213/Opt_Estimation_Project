@@ -2,11 +2,11 @@
 
 While @eq-lincov stays the same, the STM $\mathbf{\Phi}$ changes depending on the state representation we choose --- 
 as well as its ability to accurately capture the nonlinear dynamics present in orbit. As mentioned above, we will take two different state representations: a RIC framework
-framework using CW-equations and an orbital parameterization using ROEs.
+using CW equations and an orbital parameterization using ROEs.
 
 ### Clohessy Wiltshire STM
 
-To understand how $\mathbf{\Phi}$ is formed using the CW-equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is 
+To understand how $\mathbf{\Phi}$ is formed using the CW equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is 
 fixed to the Chief satellite as shown in @fig-RIC_frame.
 
 ![Chief-Deputy RIC Frame Geometry. *Diagram generated with Gemini.*](images/RIC_frame_CW.jpg){#fig-RIC_frame width="80%" fig-align="center"}
@@ -14,23 +14,23 @@ fixed to the Chief satellite as shown in @fig-RIC_frame.
 The radial unit vector is defined by @eq-Radial.
 
 $$
-\hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
+\hat{R} = \frac{\mathbf{r_c}}{\|\mathbf{r_c}\|}
 $$ {#eq-Radial}
 
-Where $\mathbf{r}$ is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in @eq-Cross.
+Where $\mathbf{r}_c$ is the position vector of the satellite in the ECI frame, and the subscript c denotes the Chief satellite. The Cross-Track unit vector is then defined in @eq-Cross.
 
 $$
-  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{||\mathbf{r_c}\times\mathbf{v_c}||}
+  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{\|\mathbf{r_c}\times\mathbf{v_c}\|}
 $${#eq-Cross}
 
-Where $\mathbf{v}$ is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as 
+Where $\mathbf{v}_c$ is the satellite's velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as 
 
 $$
   \hat{I} = \hat{C} \times \hat{R}
 $${#eq-IN}
 
 By assuming that the Chief satellite is in a circular orbit, and that the distance 
-between the Chief and Deputy is much smaller than the Chief's orbital radius ($||\delta \mathbf{r}|| << \mathbf{r}_c$),
+between the Chief and Deputy is much smaller than the Chief's orbital radius ($\|\delta \mathbf{r}\| \ll \|\mathbf{r}_c\|$),
 Clohessy and Wiltshire formulated the following equations that describe the relative motion of the Deputy with respect to 
 the Chief.<sup>[1](#ref-cw)</sup>
 
@@ -42,8 +42,8 @@ $$
 \end{aligned}
 $$ {#eq-cw}
 
-Where $n = \sqrt{\mu / a_c ^ 3}$ is the mean motion of the Chief satellite with $\mu$ being earths gravitational parameter and $a_c$ is 
-the semi-major axis of the Chief, or Chiefs radial distance from the center of the earth. By analytically solving these equations and rearranging, we arrive 
+Where $n = \sqrt{\mu / a_c ^ 3}$ is the mean motion of the Chief satellite with $\mu$ being Earth's gravitational parameter and $a_c$ is 
+the semi-major axis of the Chief, or Chief's radial distance from the center of the Earth. By analytically solving these equations and rearranging, we arrive 
 at the following state transition matrix.
 
 $$
@@ -56,5 +56,7 @@ $$
   0 & 0 & -n\sin(nt) & 0 & 0 & \cos(nt)
   \end{bmatrix}
 $$ {#eq-phi_cw}
+
+As we look at @eq-phi_cw there are two things worth noting
 
 ### Relative Orbital Element STM
