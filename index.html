@@ -127,14 +127,14 @@ Figure&nbsp;1: Chief-Deputy formation flight geometry. <em>Diagram generated wit
 <p><span id="eq-lincov"><span class="math display">\[
 \mathbf{P}(t) = \mathbf{\Phi}(t,t_0) \mathbf{P}_0 \mathbf{\Phi}(t,t_0)^T + \mathbf{Q}
 \tag{1}\]</span></span></p>
-<p>In this equation <span class="math inline">\(\mathbf{\Phi}\)</span> represents the state transition matrix, which uses linearized dynamics to propagate state deviations from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t\)</span>. <span class="math inline">\(\mathbf{P}_0\)</span> is the covariance at <span class="math inline">\(t_0\)</span>, and <span class="math inline">\(\mathbf{Q}\)</span> represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with with the only perturbation being gravity. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> will do a good job at propagating the covariance forward in time given that the uncertainty remains Gaussian and that the linearized dynamics contained in <span class="math inline">\(\mathbf{\Phi}\)</span> accurately represent the true system dynamics. Linear covariance propagation saves time by eliminating the need for large Monte Carlo simulations to analyze the uncertainty bounds.</p>
+<p>In this equation <span class="math inline">\(\mathbf{\Phi}\)</span> represents the state transition matrix, which uses linearized dynamics to propagate state deviations from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t\)</span>. <span class="math inline">\(\mathbf{P}_0\)</span> is the covariance at <span class="math inline">\(t_0\)</span>, and <span class="math inline">\(\mathbf{Q}\)</span> represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with the only perturbation being gravity. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> will do a good job at propagating the covariance forward in time given that the uncertainty remains Gaussian and that the linearized dynamics contained in <span class="math inline">\(\mathbf{\Phi}\)</span> accurately represent the true system dynamics. Linear covariance propagation saves time by eliminating the need for large Monte Carlo simulations to analyze the uncertainty bounds.</p>
 </section>
 <section id="coordinate-geometry" class="level2">
 <h2 class="anchored" data-anchor-id="coordinate-geometry">Coordinate Geometry</h2>
-<p>While <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> stays the same, the STM <span class="math inline">\(\mathbf{\Phi}\)</span> changes depending on the state representation we choose — as well as its ability to accurately capture the nonlinear dynamics present in orbit. As mentioned above, we will take two different state representations: a RIC framework framework using CW-equations and an orbital parameterization using ROEs.</p>
+<p>While <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> stays the same, the STM <span class="math inline">\(\mathbf{\Phi}\)</span> changes depending on the state representation we choose — as well as its ability to accurately capture the nonlinear dynamics present in orbit. As mentioned above, we will take two different state representations: a RIC framework using CW equations and an orbital parameterization using ROEs.</p>
 <section id="clohessy-wiltshire-stm" class="level3">
 <h3 class="anchored" data-anchor-id="clohessy-wiltshire-stm">Clohessy Wiltshire STM</h3>
-<p>To understand how <span class="math inline">\(\mathbf{\Phi}\)</span> is formed using the CW-equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is fixed to the Chief satellite as shown in <a href="#fig-RIC_frame" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<p>To understand how <span class="math inline">\(\mathbf{\Phi}\)</span> is formed using the CW equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is fixed to the Chief satellite as shown in <a href="#fig-RIC_frame" class="quarto-xref">Figure&nbsp;2</a>.</p>
 <div id="fig-RIC_frame" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-RIC_frame-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -147,13 +147,13 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 </div>
 <p>The radial unit vector is defined by <a href="#eq-Radial" class="quarto-xref">Equation&nbsp;2</a>.</p>
 <p><span id="eq-Radial"><span class="math display">\[
-\hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
+\hat{R} = \frac{\mathbf{r_c}}{\|\mathbf{r_c}\|}
 \tag{2}\]</span></span></p>
-<p>Where <span class="math inline">\(\mathbf{r}\)</span> is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in <a href="#eq-Cross" class="quarto-xref">Equation&nbsp;3</a>.</p>
+<p>Where <span class="math inline">\(\mathbf{r}_c\)</span> is the position vector of the satellite in the ECI frame, and the subscript c denotes the Chief satellite. The Cross-Track unit vector is then defined in <a href="#eq-Cross" class="quarto-xref">Equation&nbsp;3</a>.</p>
 <p><span id="eq-Cross"><span class="math display">\[
-  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{||\mathbf{r_c}\times\mathbf{v_c}||}
+  \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{\|\mathbf{r_c}\times\mathbf{v_c}\|}
 \tag{3}\]</span></span></p>
-<p>Where <span class="math inline">\(\mathbf{v}\)</span> is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as</p>
+<p>Where <span class="math inline">\(\mathbf{v}_c\)</span> is the satellite’s velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as</p>
 <p><span id="eq-IN"><span class="math display">\[
   \hat{I} = \hat{C} \times \hat{R}
 \tag{4}\]</span></span></p>
@@ -165,7 +165,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 \ddot{z} &amp;= -n^2 z
 \end{aligned}
 \tag{5}\]</span></span></p>
-<p>Where <span class="math inline">\(n = \sqrt{\mu / a_c ^ 3}\)</span> is the mean motion of the Chief satellite with <span class="math inline">\(\mu\)</span> being earths gravitational parameter and <span class="math inline">\(a_c\)</span> is the semi-major axis of the Chief, or Chiefs radial distance from the center of the earth. By analytically solving these equations and rearranging, we arrive at the following state transition matrix.</p>
+<p>Where <span class="math inline">\(n = \sqrt{\mu / a_c ^ 3}\)</span> is the mean motion of the Chief satellite with <span class="math inline">\(\mu\)</span> being Earth’s gravitational parameter and <span class="math inline">\(a_c\)</span> is the semi-major axis of the Chief, or Chief’s radial distance from the center of the Earth. By analytically solving these equations and rearranging, we arrive at the following state transition matrix.</p>
 <p><span id="eq-phi_cw"><span class="math display">\[
   \mathbf{\Phi}_{RIC} = \begin{bmatrix}
   4 - 3 \cos(nt) &amp; 0 &amp; 0 &amp; \frac{1}{n}\sin(nt) &amp; \frac{2}{n} (1 - \cos(nt)) &amp; 0 \\
