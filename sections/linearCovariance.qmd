@@ -1,22 +1,22 @@
 ## Linear Covariance Propagation
 
-Lets look into how linear covariance propagation works and the benefits of using it. In state estimation, two important quantities are the 
+Let's look into how linear covariance propagation works and the benefits of using it. In state estimation, two important quantities are the 
 mean, $\mathbf{x}$, and the covariance, $\mathbf{P}$. The covariance represents the uncertainty in the state estimate. Imagine a bell curve, representing a 1-dimensional distribution; the 
-covariance would represent how "wide" the bell curve is, where a larger covariance corelates to a "wider" bell curve.
+covariance reduces to variance and represents how "wide" the bell curve is, where a larger covariance correlates to a "wider" bell curve.
 
-With this in mind, lets look at a scenario involving two satellites in formation flight. Let's call the satellite being followed the "Chief" and the following satellite the "Deputy". In this 
-scenario we will assume the state of the Chief satellite is perfectly known, while the Deputy has some covariance associated with its state estimate. 
+With this in mind, let's look at a scenario involving two satellites in formation flight. Let's call the satellite being followed the "Chief" and the following satellite the "Deputy". In this 
+scenario we will assume the state of the Chief satellite is perfectly known, while the Deputy has some covariance associated with its state estimate as seen in @fig-formation. 
 
 ![Chief-Deputy formation flight geometry. *Diagram generated with Gemini.*](images/formation_flight.jpg){#fig-formation width="80%" fig-align="center"}
 
-As the two satellites progress in their orbits, the covariance can also be propagated forward to show the uncertainty in the deputies state over time using linear covariance propagation. 
+As the two satellites progress in their orbits, the covariance can also be propagated forward to show the uncertainty in the Deputy's state over time using linear covariance propagation. 
 @eq-lincov is the equation used for performing this propagation.
 
 $$
 \mathbf{P}(t) = \mathbf{\Phi}(t,t_0) \mathbf{P}_0 \mathbf{\Phi}(t,t_0)^T + \mathbf{Q} 
 $${#eq-lincov}
 
-In this equation $\mathbf{\Phi}$ represents the state transition matrix, which uses linearized dynamics to propagate the covariance from $t_0$ to $t$. 
-$Q$ represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with no perturbations.
- @eq-lincov will do a good job at propagating the covariance given that the uncertainty remains gaussian and that the linearized dynamics contained 
- in $\mathbf{\Phi}$ accurately represents the true system dynamics.
+In this equation $\mathbf{\Phi}$ represents the state transition matrix, which uses linearized dynamics to propagate state deviations from $t_0$ to $t$. 
+$\mathbf{P}_0$ is the covariance at $t_0$, and $\mathbf{Q}$ represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with with the only perturbation being gravity.
+ @eq-lincov will do a good job at propagating the covariance forward in time given that the uncertainty remains Gaussian and that the linearized dynamics contained 
+ in $\mathbf{\Phi}$ accurately represent the true system dynamics. Linear covariance propagation saves time by eliminating the need for large Monte Carlo simulations to analyze the uncertainty bounds.

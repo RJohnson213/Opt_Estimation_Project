@@ -111,8 +111,8 @@ window.Quarto = {
 <p>We will compare these methods through a Monte Carlo simulation using a nonlinear two-body dynamics propagator. It is important to perform these kinds of studies to ensure spacecraft safety during close-proximity missions, as well as to assess long-term uncertainty growth.</p>
 <section id="linear-covariance-propagation" class="level2">
 <h2 class="anchored" data-anchor-id="linear-covariance-propagation">Linear Covariance Propagation</h2>
-<p>Lets look into how linear covariance propagation works and the benefits of using it. In state estimation, two important quantities are the mean, <span class="math inline">\(\mathbf{x}\)</span>, and the covariance, <span class="math inline">\(\mathbf{P}\)</span>. The covariance represents the uncertainty in the state estimate. Imagine a bell curve, representing a 1-dimensional distribution; the covariance would represent how “wide” the bell curve is, where a larger covariance corelates to a “wider” bell curve.</p>
-<p>With this in mind, lets look at a scenario involving two satellites in formation flight. Let’s call the satellite being followed the “Chief” and the following satellite the “Deputy”. In this scenario we will assume the state of the Chief satellite is perfectly known, while the Deputy has some covariance associated with its state estimate.</p>
+<p>Let’s look into how linear covariance propagation works and the benefits of using it. In state estimation, two important quantities are the mean, <span class="math inline">\(\mathbf{x}\)</span>, and the covariance, <span class="math inline">\(\mathbf{P}\)</span>. The covariance represents the uncertainty in the state estimate. Imagine a bell curve, representing a 1-dimensional distribution; the covariance reduces to variance and represents how “wide” the bell curve is, where a larger covariance correlates to a “wider” bell curve.</p>
+<p>With this in mind, let’s look at a scenario involving two satellites in formation flight. Let’s call the satellite being followed the “Chief” and the following satellite the “Deputy”. In this scenario we will assume the state of the Chief satellite is perfectly known, while the Deputy has some covariance associated with its state estimate as seen in <a href="#fig-formation" class="quarto-xref">Figure&nbsp;1</a>.</p>
 <div id="fig-formation" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-formation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -123,31 +123,34 @@ Figure&nbsp;1: Chief-Deputy formation flight geometry. <em>Diagram generated wit
 </figcaption>
 </figure>
 </div>
-<p>As the two satellites progress in their orbits, the covariance can also be propagated forward to show the uncertainty in the deputies state over time using linear covariance propagation. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> is the equation used for performing this propagation.</p>
+<p>As the two satellites progress in their orbits, the covariance can also be propagated forward to show the uncertainty in the Deputy’s state over time using linear covariance propagation. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> is the equation used for performing this propagation.</p>
 <p><span id="eq-lincov"><span class="math display">\[
 \mathbf{P}(t) = \mathbf{\Phi}(t,t_0) \mathbf{P}_0 \mathbf{\Phi}(t,t_0)^T + \mathbf{Q}
 \tag{1}\]</span></span></p>
-<p>In this equation <span class="math inline">\(\mathbf{\Phi}\)</span> represents the state transition matrix, which uses linearized dynamics to propagate the covariance from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t\)</span>. <span class="math inline">\(Q\)</span> represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with no perturbations. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> will do a good job at propagating the covariance given that the uncertainty remains gaussian and that the linearized dynamics contained in <span class="math inline">\(\mathbf{\Phi}\)</span> accurately represents the true system dynamics.</p>
+<p>In this equation <span class="math inline">\(\mathbf{\Phi}\)</span> represents the state transition matrix, which uses linearized dynamics to propagate state deviations from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t\)</span>. <span class="math inline">\(\mathbf{P}_0\)</span> is the covariance at <span class="math inline">\(t_0\)</span>, and <span class="math inline">\(\mathbf{Q}\)</span> represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with with the only perturbation being gravity. <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> will do a good job at propagating the covariance forward in time given that the uncertainty remains Gaussian and that the linearized dynamics contained in <span class="math inline">\(\mathbf{\Phi}\)</span> accurately represent the true system dynamics. Linear covariance propagation saves time by eliminating the need for large Monte Carlo simulations to analyze the uncertainty bounds.</p>
 </section>
 <section id="coordinate-geometry" class="level2">
 <h2 class="anchored" data-anchor-id="coordinate-geometry">Coordinate Geometry</h2>
-<section id="clohessy-wiltshire-equations" class="level3">
-<h3 class="anchored" data-anchor-id="clohessy-wiltshire-equations">Clohessy Wiltshire Equations</h3>
-<p>The CW (Clohessy Wiltshire) equations assume the Chief satellite is in a circular orbit. These equations are defined in the RIC (Radial, In-Track, Cross-Track) frame which is fixed to the Chief satellite. The radial unit vector is defined by <a href="#eq-Radial" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>While <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a> stays the same, the STM <span class="math inline">\(\mathbf{\Phi}\)</span> changes depending on the state representation we choose — as well as its ability to accurately capture the nonlinear dynamics present in orbit. As mentioned above, we will take two different state representations: a RIC framework framework using CW-equations and an orbital parameterization using ROEs.</p>
+<section id="clohessy-wiltshire-stm" class="level3">
+<h3 class="anchored" data-anchor-id="clohessy-wiltshire-stm">Clohessy Wiltshire STM</h3>
+<p>To understand how <span class="math inline">\(\mathbf{\Phi}\)</span> is formed using the CW-equations, we must first visit the RIC frame. This is because the CW equations are defined in the RIC frame, which is fixed to the Chief satellite. The radial unit vector is defined by <a href="#eq-Radial" class="quarto-xref">Equation&nbsp;2</a>.</p>
 <p><span id="eq-Radial"><span class="math display">\[
 \hat{R} = \frac{\mathbf{r_c}}{||\mathbf{r_c}||}
 \tag{2}\]</span></span></p>
-<p>Where is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in <a href="#eq-Cross" class="quarto-xref">Equation&nbsp;3</a>.</p>
+<p>Where <span class="math inline">\(\mathbf{r}\)</span> is the position vector of the satellite in the ECI frame, and the subscript c denotes the chief satellite. The Cross-Track unit vector is then defined in <a href="#eq-Cross" class="quarto-xref">Equation&nbsp;3</a>.</p>
 <p><span id="eq-Cross"><span class="math display">\[
   \hat{C} = \frac{\mathbf{r_c}\times\mathbf{v_c}}{||\mathbf{r_c}\times\mathbf{v_c}||}
 \tag{3}\]</span></span></p>
-<p>Where is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as</p>
+<p>Where <span class="math inline">\(\mathbf{v}\)</span> is the satellites velocity vector in the ECI frame. With the Radial and Cross-Track directions defined, the In-Track direction is defined as</p>
 <p><span id="eq-IN"><span class="math display">\[
   \hat{I} = \hat{C} \times \hat{R}
 \tag{4}\]</span></span></p>
+<p>By assuming that the Chief satellite is in a circular orbit, and that the distance between the Chief and Deputy is much smaller than the Chief’s orbital radius (<span class="math inline">\(||\delta \mathbf{r}|| &lt;&lt; \mathbf{r}_c\)</span>), Clohessy and Wiltshire formulated the following equations.<sup><a href="#ref-cw">1</a></sup></p>
+<p>The CW (Clohessy Wiltshire) equations assume the Chief satellite is in a circular orbit.</p>
 </section>
-<section id="relative-orbital-elements" class="level3">
-<h3 class="anchored" data-anchor-id="relative-orbital-elements">Relative Orbital Elements</h3>
+<section id="relative-orbital-element-stm" class="level3">
+<h3 class="anchored" data-anchor-id="relative-orbital-element-stm">Relative Orbital Element STM</h3>
 </section>
 </section>
 <section id="simulation" class="level2">
@@ -174,7 +177,7 @@ Figure&nbsp;1: Chief-Deputy formation flight geometry. <em>Diagram generated wit
 <hr>
 <div style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;">
 <ol type="1">
-<li>Maybeck, P. S. (1979). <em>Stochastic Models, Estimation, and Control</em> (Vol. 1). Academic Press.</li>
+<li><span id="ref-cw"></span>Clohessy, W. H., &amp; Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. <em>Journal of the Aerospace Sciences</em>, 27(9), 653–658. <a href="https://doi.org/10.2514/8.8704">https://doi.org/10.2514/8.8704</a></li>
 <li>Carpenter, J. R., &amp; D’Souza, C. N. (2018). <em>Navigation Filter Best Practices</em>. NASA/TP-2018-219822.</li>
 <li>D’Amico, S. (2010). <em>Autonomous Formation Flying in Low Earth Orbit</em>. PhD Thesis, TU Delft.</li>
 </ol>
