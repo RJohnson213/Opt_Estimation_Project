@@ -19,6 +19,8 @@ format:
 
 {{< include sections/results.qmd >}}
 
+{{< include sections/reasoning.qmd >}}
+
 {{< include sections/takeaways.qmd >}}
 
 ---

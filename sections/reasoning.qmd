@@ -1,0 +1,14 @@
+## Why CW Framework Breaks Down
+
+Now lets answer the why behind this problem. Mathematically, linear covariance propagation truncates 
+the Taylor series expansion of the two-body equations of motion at first order, ignoring higher-order nonlinear 
+terms. This truncation makes how we choose our coordinates critical to how well a linear model will track the true 
+dynamics. In the CW framework, the dynamics are linearized around a circular chief orbit, assuming small 
+offsets in a rotating RIC frame. These assumptions are valid for short time horizons, but as the time horizon evolves and 
+seperation increases, the truncated nonlinear terms become more present in the true system dynamics, causing the sample cloud 
+to bend into a "banana" shape. @fig-ric_2 shows the distribution of the propagated states in a formation with 10 m seperation, 
+we can see that the nonlinear terms don't have a noticable effect until later in the simulation, which is what we would expect.
+
+![Radial/In-Track Dispersion Over 30 Orbits.](images/ric_frame_propagation_animation2.gif){#fig-ric_2 width="80%" fig-align="center"}
+
+

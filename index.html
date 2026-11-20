@@ -317,9 +317,20 @@ Figure&nbsp;7: ROE Frame State Evolution.
 </figcaption>
 </figure>
 </div>
-<section id="why-cw-framework-breaks-down" class="level3">
-<h3 class="anchored" data-anchor-id="why-cw-framework-breaks-down">Why CW Framework Breaks Down</h3>
 </section>
+<section id="why-cw-framework-breaks-down" class="level2">
+<h2 class="anchored" data-anchor-id="why-cw-framework-breaks-down">Why CW Framework Breaks Down</h2>
+<p>Now lets answer the why behind this problem. Mathematically, linear covariance propagation truncates the Taylor series expansion of the two-body equations of motion at first order, ignoring higher-order nonlinear terms. This truncation makes how we choose our coordinates critical to how well a linear model will track the true dynamics. In the CW framework, the dynamics are linearized around a circular chief orbit, assuming small offsets in a rotating RIC frame. These assumptions are valid for short time horizons, but as the time horizon evolves and seperation increases, the truncated nonlinear terms become more present in the true system dynamics, causing the sample cloud to bend into a “banana” shape. <a href="#fig-ric_2" class="quarto-xref">Figure&nbsp;8</a> shows the distribution of the propagated states in a formation with 10 m seperation, we can see that the nonlinear terms don’t have a noticable effect until later in the simulation, which is what we would expect.</p>
+<div id="fig-ric_2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ric_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/ric_frame_propagation_animation2.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ric_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Radial/In-Track Dispersion Over 30 Orbits.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>

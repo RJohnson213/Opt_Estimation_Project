@@ -23,8 +23,3 @@ propagation in this framework is able to capture state evolution from the Monte 
 To provide a similar view as before, @fig-roe_time shows the evolution of each component.
 
 ![ROE Frame State Evolution.](images/roe_time_history.png){#fig-roe_time width="80%" fig-align="center"}
-
-
-
-
-### Why CW Framework Breaks Down
