@@ -230,12 +230,24 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 </section>
 <section id="simulation" class="level2">
 <h2 class="anchored" data-anchor-id="simulation">Simulation</h2>
-<p>Let’s now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows the user to model satellites in orbit using the two-body dynamics equation shown below.</p>
+<p>Let’s now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows us to model satellites in orbit using the two-body dynamics equation shown below.</p>
 <p><span id="eq-two_body"><span class="math display">\[
 \ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r}
 \tag{10}\]</span></span></p>
-<p>By building some helper functions, we can allow two satellites to be propagated simultaneously for formation flight. This propagator will represent the truth model, and will be used for the Monte Carlo simulation discussed below. Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation.</p>
-<p>The Monte Carlo simulation will involve sampling N initial Deputy states (e.g.&nbsp;500) from the distribution <span class="math inline">\(\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_0, \mathbf{P}_0)\)</span> and then propagate them forward in time using the truth model for some number of orbits. <span class="math inline">\(\mathbf{x}_0\)</span> and <span class="math inline">\(\mathbf{P}_0\)</span> will then be propagated forward using <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a>.</p>
+<p>By building some helper functions, we can allow two satellites to be propagated simultaneously for formation flight. This propagator will represent the truth model, and will be used for the Monte Carlo simulation discussed below. In this simulation, both satellites will be in a circular orbit 500 km above the Earth’s surface. We will initialize the Deputy satellite at its nominal state 1 km In-Track behind the Chief in the reference orbit and propagate both satellits for 100 orbits.</p>
+<div id="fig-simsetup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simsetup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/simulationsetup.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simsetup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Chief-Deputy Formation Initial Conditions. <em>Diagram generated with Gemini.</em>
+</figcaption>
+</figure>
+</div>
+<p>SSAPy outputs position and velocity in the Earth Centered Inertial (ECI) frame along with the classical orbital elements, using the definition of the RIC frame above, we can construct a direction cosine matrix to convert our states into the RIC frame. To convert into ROEs, we can use <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a> and then scale by <span class="math inline">\(a_c\)</span>.</p>
+<p>Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, allowing us to initialize <span class="math inline">\(P_0\)</span> as a covariance matrix formed from a GPS specification sheet.</p>
+<p>The Monte Carlo simulation will involve sampling N initial Deputy states (e.g.&nbsp;500) from the distribution <span class="math inline">\(\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_{0,\text{nom}}, \mathbf{P}_0)\)</span> and then propagates them forward in time using the truth model for 100 orbits. <span class="math inline">\(\bar{\mathbf{x}}_{0,\text{nom}}\)</span> and <span class="math inline">\(\mathbf{P}_0\)</span> will then be propagated forward using <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a>. The results will then be compared by overlaying the <span class="math inline">\(3\sigma\)</span> covariance bounds from the linear covariance propagator on top of the Monte Carlo results to view how well the covariance does at representing the final spread.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>

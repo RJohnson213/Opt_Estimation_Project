@@ -1,6 +1,6 @@
 ## Simulation
 
-Let's now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows the user 
+Let's now discuss how we will simulate relative motion between the Chief and Deputy. Python has a library called SSAPy, which allows us 
 to model satellites in orbit using the two-body dynamics equation shown below.
 
 $$
@@ -8,11 +8,25 @@ $$
 $${#eq-two_body}
 
 By building some helper functions, we can allow two satellites to be propagated simultaneously for formation flight. This propagator will represent the 
-truth model, and will be used for the Monte Carlo simulation discussed below. Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate 
-the covariance forward in time, representing the linear covariance propagation. 
+truth model, and will be used for the Monte Carlo simulation discussed below. In this simulation, both satellites will be in a circular orbit 500 km above the Earth's surface. 
+We will initialize the Deputy satellite at its nominal state 1 km In-Track behind the Chief in the reference orbit and propagate both satellits for 100 orbits.
 
-The Monte Carlo simulation will involve sampling N initial Deputy states (e.g. 500) from the distribution $\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_0, \mathbf{P}_0)$ and then 
-propagate them forward in time using the truth model for some number of orbits. $\mathbf{x}_0$ and $\mathbf{P}_0$ will then be propagated forward using @eq-lincov. 
+![Chief-Deputy Formation Initial Conditions. *Diagram generated with Gemini.*](images/simulationsetup.jpg){#fig-simsetup width="80%" fig-align="center"}
+
+SSAPy outputs position and velocity in the Earth Centered Inertial (ECI) frame along with the classical orbital elements, using the definition of the RIC frame 
+above, we can construct a direction cosine matrix to convert our states into the RIC frame. To convert into ROEs, we can use @eq-ROE and then scale by $a_c$.
+
+Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate 
+the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, 
+allowing us to initialize $P_0$ as a covariance matrix formed from a GPS specification sheet.
+
+The Monte Carlo simulation will involve sampling N initial Deputy states (e.g. 500) from the distribution $\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_{0,\text{nom}}, \mathbf{P}_0)$ and then 
+propagates them forward in time using the truth model for 100 orbits. $\bar{\mathbf{x}}_{0,\text{nom}}$ and $\mathbf{P}_0$ will then be propagated forward using @eq-lincov. 
+The results will then be compared by overlaying the $3\sigma$ covariance bounds from the linear covariance propagator on top of the Monte Carlo results 
+to view how well the covariance does at representing the final spread.  
+
+
+
 
 
 
