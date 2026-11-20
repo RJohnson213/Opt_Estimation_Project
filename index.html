@@ -214,7 +214,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
       a_c \delta i_y
   \end{bmatrix}
 \tag{8}\]</span></span></p>
-<p><a href="#eq-dim_roe" class="quarto-xref">Equation&nbsp;8</a> represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> as developed by D’Amico.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This formulation was derived such that it accounts for <span class="math inline">\(J_2\)</span> perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set the <span class="math inline">\(J_2\)</span> terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>.</p>
+<p><a href="#eq-dim_roe" class="quarto-xref">Equation&nbsp;8</a> represents the relative state vector that we will be using in this framework. For this study, the two important components to look at will be <span class="math inline">\(a_c \delta a\)</span> and <span class="math inline">\(a_c \delta \lambda\)</span>, which will closely resemble the Radial and In-Track components from the RIC frame. It is important to note that while the In-Track component in the RIC frame is literally “forward” or “backward” in space, <span class="math inline">\(a_c \delta \lambda\)</span> represents the actual progression in orbit. We will skip the lengthy derivation and jump straight to <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> as developed by D’Amico.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This formulation was derived such that it accounts for <span class="math inline">\(J_2\)</span> perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set the <span class="math inline">\(J_2\)</span> terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>.</p>
 <p><span id="eq-ROE_stm"><span class="math display">\[
 \mathbf{\Phi}_{ROE}(t) = \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
@@ -225,7 +225,7 @@ Figure&nbsp;2: Chief-Deputy RIC Frame Geometry. <em>Diagram generated with Gemin
 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 \tag{9}\]</span></span></p>
-<p>In <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry.</p>
+<p>In <a href="#eq-ROE_stm" class="quarto-xref">Equation&nbsp;9</a>, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis, all other components are either static or osculating in the case of the relative eccentricity components. A result of this structure is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry.</p>
 </section>
 </section>
 <section id="simulation" class="level2">
@@ -246,11 +246,77 @@ Figure&nbsp;3: Chief-Deputy Formation Initial Conditions. <em>Diagram generated 
 </figure>
 </div>
 <p>SSAPy outputs position and velocity in the Earth Centered Inertial (ECI) frame along with the classical orbital elements, using the definition of the RIC frame above, we can construct a direction cosine matrix to convert our states into the RIC frame. To convert into ROEs, we can use <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a> and then scale by <span class="math inline">\(a_c\)</span>.</p>
-<p>Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, allowing us to initialize <span class="math inline">\(P_0\)</span> as a covariance matrix formed from a GPS specification sheet.</p>
+<p>Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, allowing us to initialize <span class="math inline">\(P_0\)</span> as a covariance matrix formed from a GPS specification sheet. <a href="#eq-P_RTN" class="quarto-xref">Equation&nbsp;11</a> and <a href="#eq-P_ROE" class="quarto-xref">Equation&nbsp;12</a> show the initial covariances for both methods, where each covariance represent the same sensor uncertainty.</p>
+<p><span id="eq-P_RTN"><span class="math display">\[
+\mathbf{P}_{0,\text{RTN}} =
+\begin{bmatrix}
+2.560 \times 10^{-4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 4.050 \times 10^{-4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 4.050 \times 10^{-4} &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1.600 \times 10^{-5} &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1.125 \times 10^{-6} &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1.125 \times 10^{-6}
+\end{bmatrix}
+\tag{11}\]</span></span></p>
+<p><span id="eq-P_ROE"><span class="math display">\[
+\mathbf{P}_{\text{ROE},0} =
+\begin{bmatrix}
+3.67765656 &amp; 0 &amp; 3.67663256 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 52.2462351 &amp; 0 &amp; 26.1230973 &amp; 0 &amp; 0 \\
+3.67663256 &amp; 0 &amp; 3.67586456 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 26.1230973 &amp; 0 &amp; 13.0615487 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.918390140 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4.05000000 \times 10^{-5}
+\end{bmatrix}
+\tag{12}\]</span></span></p>
 <p>The Monte Carlo simulation will involve sampling N initial Deputy states (e.g.&nbsp;500) from the distribution <span class="math inline">\(\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_{0,\text{nom}}, \mathbf{P}_0)\)</span> and then propagates them forward in time using the truth model for 100 orbits. <span class="math inline">\(\bar{\mathbf{x}}_{0,\text{nom}}\)</span> and <span class="math inline">\(\mathbf{P}_0\)</span> will then be propagated forward using <a href="#eq-lincov" class="quarto-xref">Equation&nbsp;1</a>. The results will then be compared by overlaying the <span class="math inline">\(3\sigma\)</span> covariance bounds from the linear covariance propagator on top of the Monte Carlo results to view how well the covariance does at representing the final spread.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Let’s jump straight to the most revealing plot showing how the linear covariance propagation fail for the RIC frame.</p>
+<div id="fig-ric_gif" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ric_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/ric_frame_propagation_animation.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ric_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Radial/In-Track Dispersion Over 100 Orbits.
+</figcaption>
+</figure>
+</div>
+<p>Over the 100 orbit simulation, the initial Gaussian distribution becomes completely “bananafied”, no longer taking the form of a Gaussian distribution. In <a href="#fig-ric_gif" class="quarto-xref">Figure&nbsp;4</a>, the blue points represent the Monte Carlo samples, and the red ellipse represents the current <span class="math inline">\(3\sigma\)</span> ellipse produced by the linear covariance propagator. The error becomes noticable by the fifth orbit and continues to grow from then on, with some samples having more than 2.5 meters of error from there expected state. <a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> provides the full state evolution over the simulation.</p>
+<div id="fig-ric_time" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ric_time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/ric_time_history.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ric_time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: RIC Frame State Evolution.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> shows that all of the components follow a linear trend except for the Radial state, which is nonlinear. We will revisit why this happens but before that, lets look at how the ROE framework performs. <a href="#fig-roe_gif" class="quarto-xref">Figure&nbsp;6</a> shows the same distribution over 100 orbits, but this time represented using ROEs.</p>
+<div id="fig-roe_gif" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roe_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/roe_propagation_animation.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roe_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: ROE Dispersion Over 100 Orbits.
+</figcaption>
+</figure>
+</div>
+<p>Earlier we discussed how a Semi-Major Axis offset will result in an In-Track drift when using ROEs, this is exactly what we see in this figure. Over the 100 orbits, the negative correlation between Semi-Major Axis and <span class="math inline">\(a_c \delta \lambda\)</span> is seen. The linear covariance propagation in this framework is able to capture state evolution from the Monte Carlo, resulting in a better state estimate. To provide a similar view as before, <a href="#fig-roe_time" class="quarto-xref">Figure&nbsp;7</a> shows the evolution of each component.</p>
+<div id="fig-roe_time" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roe_time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/roe_time_history.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roe_time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: ROE Frame State Evolution.
+</figcaption>
+</figure>
+</div>
 <section id="why-cw-framework-breaks-down" class="level3">
 <h3 class="anchored" data-anchor-id="why-cw-framework-breaks-down">Why CW Framework Breaks Down</h3>
 </section>

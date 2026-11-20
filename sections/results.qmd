@@ -1,3 +1,30 @@
 ## Results
 
+Let's jump straight to the most revealing plot showing how the linear covariance propagation fail for the RIC frame. 
+
+![Radial/In-Track Dispersion Over 100 Orbits.](images/ric_frame_propagation_animation.gif){#fig-ric_gif width="80%" fig-align="center"}
+
+Over the 100 orbit simulation, the initial Gaussian distribution becomes completely "bananafied", no longer taking the form of a Gaussian distribution. 
+In @fig-ric_gif, the blue points represent the Monte Carlo samples, and the red ellipse represents the current $3\sigma$ ellipse produced by the linear covariance 
+propagator. The error becomes noticable by the fifth orbit and continues to grow from then on, with some samples having more than 
+2.5 meters of error from there expected state. @fig-ric_time provides the full state evolution over the simulation.
+
+![RIC Frame State Evolution.](images/ric_time_history.png){#fig-ric_time width="80%" fig-align="center"}
+
+@fig-ric_time shows that all of the components follow a linear trend except for the Radial state, which is nonlinear. 
+We will revisit why this happens but before that, lets look at how the ROE framework performs. @fig-roe_gif shows the same distribution over 100 orbits, but this 
+time represented using ROEs.
+
+![ROE Dispersion Over 100 Orbits.](images/roe_propagation_animation.gif){#fig-roe_gif width="80%" fig-align="center"}
+
+Earlier we discussed how a Semi-Major Axis offset will result in an In-Track drift when using ROEs, this is exactly what we see 
+in this figure. Over the 100 orbits, the negative correlation between Semi-Major Axis and $a_c \delta \lambda$ is seen. The linear covariance 
+propagation in this framework is able to capture state evolution from the Monte Carlo, resulting in a better state estimate. 
+To provide a similar view as before, @fig-roe_time shows the evolution of each component.
+
+![ROE Frame State Evolution.](images/roe_time_history.png){#fig-roe_time width="80%" fig-align="center"}
+
+
+
+
 ### Why CW Framework Breaks Down

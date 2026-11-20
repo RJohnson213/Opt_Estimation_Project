@@ -18,7 +18,32 @@ above, we can construct a direction cosine matrix to convert our states into the
 
 Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate 
 the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, 
-allowing us to initialize $P_0$ as a covariance matrix formed from a GPS specification sheet.
+allowing us to initialize $P_0$ as a covariance matrix formed from a GPS specification sheet. @eq-P_RTN and @eq-P_ROE show the initial 
+covariances for both methods, where each covariance represent the same sensor uncertainty.
+
+$$
+\mathbf{P}_{0,\text{RTN}} =
+\begin{bmatrix}
+2.560 \times 10^{-4} & 0 & 0 & 0 & 0 & 0 \\
+0 & 4.050 \times 10^{-4} & 0 & 0 & 0 & 0 \\
+0 & 0 & 4.050 \times 10^{-4} & 0 & 0 & 0 \\
+0 & 0 & 0 & 1.600 \times 10^{-5} & 0 & 0 \\
+0 & 0 & 0 & 0 & 1.125 \times 10^{-6} & 0 \\
+0 & 0 & 0 & 0 & 0 & 1.125 \times 10^{-6}
+\end{bmatrix}
+$${#eq-P_RTN}
+
+$$
+\mathbf{P}_{\text{ROE},0} =
+\begin{bmatrix}
+3.67765656 & 0 & 3.67663256 & 0 & 0 & 0 \\
+0 & 52.2462351 & 0 & 26.1230973 & 0 & 0 \\
+3.67663256 & 0 & 3.67586456 & 0 & 0 & 0 \\
+0 & 26.1230973 & 0 & 13.0615487 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0.918390140 & 0 \\
+0 & 0 & 0 & 0 & 0 & 4.05000000 \times 10^{-5}
+\end{bmatrix}
+$${#eq-P_ROE}
 
 The Monte Carlo simulation will involve sampling N initial Deputy states (e.g. 500) from the distribution $\mathbf{x} \sim \mathcal{N}(\bar{\mathbf{x}}_{0,\text{nom}}, \mathbf{P}_0)$ and then 
 propagates them forward in time using the truth model for 100 orbits. $\bar{\mathbf{x}}_{0,\text{nom}}$ and $\mathbf{P}_0$ will then be propagated forward using @eq-lincov. 

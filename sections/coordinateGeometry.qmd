@@ -104,7 +104,10 @@ $$
   \end{bmatrix}
 $${#eq-dim_roe}
 
-@eq-dim_roe represents the relative state vector that we will be using in this framework. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.[^3]
+@eq-dim_roe represents the relative state vector that we will be using in this framework. For this study, the two 
+important components to look at will be $a_c \delta a$ and $a_c \delta \lambda$, which will closely resemble the Radial and In-Track components 
+from the RIC frame. It is important to note that while the In-Track component in the RIC frame is literally "forward" or "backward" in space, 
+$a_c \delta \lambda$ represents the actual progression in orbit. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.[^3]
 This formulation was derived such that it accounts for $J_2$ perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
 the $J_2$ terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in @eq-ROE_stm.
 
@@ -119,6 +122,6 @@ $$
 \end{bmatrix}
 $$ {#eq-ROE_stm}
 
-In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis. 
-A result of this bounded formulation is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations 
+In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis, all other components are either static or osculating in the case of the relative eccentricity components. 
+A result of this structure is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations 
 as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry. 
