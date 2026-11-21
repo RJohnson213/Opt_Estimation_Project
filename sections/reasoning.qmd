@@ -26,5 +26,5 @@ the second object will be moving slower than the first. If you are looking at th
 is showing, a positive $a_c \delta a$ will result in a negative drift rate.
 
 The constant terms in $\mathbf{\Phi}_{ROE}$ is expected in a two-body simulation where there are no perturbing forces except gravity. We can see that the ROE framework does a 
-really good job at representing what we would expect in a two-body simulation. As a result, the linear covariance propagation using $\mathbf{\Phi}$ is able to track the samples from the 
+really good job at representing what we would expect in a two-body simulation. As a result, the linear covariance propagation using $\mathbf{\Phi}_{ROE}$ is able to track the samples from the 
 Monte Carlo simulation.
