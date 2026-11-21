@@ -115,13 +115,13 @@ $$
 \mathbf{\Phi}_{ROE}(t) = \begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 \\
 -\frac{3}{2}nt & 1 & 0 & 0 & 0 & 0 \\
-0 & 0 & \cos(nt) & -\sin(nt) & 0 & 0 \\
-0 & 0 & \sin(nt) & \cos(nt) & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 \\
 0 & 0 & 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 0 & 0 & 1
 \end{bmatrix}
 $$ {#eq-ROE_stm}
 
-In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis, all other components are either static or osculating in the case of the relative eccentricity components. 
+In @eq-ROE_stm, we see that the only cause of In-Track drift is due to an offset in the Semi-Major Axis, all other components are static. 
 A result of this structure is the slow change in orbital elements over time. A small state error in a Cartesian framework will result in large deviations 
 as the error is propagated, whereas the same initial error represented in an ROE framework will result in a slightly shifted yet bounded geometry. 
