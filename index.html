@@ -246,7 +246,7 @@ Figure&nbsp;3: Chief-Deputy Formation Initial Conditions. <em>Diagram generated 
 </figure>
 </div>
 <p>SSAPy outputs position and velocity in the Earth Centered Inertial (ECI) frame along with the classical orbital elements, using the definition of the RIC frame above, we can construct a direction cosine matrix to convert our states into the RIC frame. To convert into ROEs, we can use <a href="#eq-ROE" class="quarto-xref">Equation&nbsp;7</a> and then scale by <span class="math inline">\(a_c\)</span>.</p>
-<p>Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, allowing us to initialize <span class="math inline">\(P_0\)</span> as a covariance matrix formed from a GPS specification sheet. <a href="#eq-P_RTN" class="quarto-xref">Equation&nbsp;11</a> and <a href="#eq-P_ROE" class="quarto-xref">Equation&nbsp;12</a> show the initial covariances for both methods, where each covariance represent the same sensor uncertainty.</p>
+<p>Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, allowing us to initialize <span class="math inline">\(P_0\)</span> as a covariance matrix formed from a GPS specification sheet. <a href="#eq-P_RTN" class="quarto-xref">Equation&nbsp;11</a> and <a href="#eq-P_ROE" class="quarto-xref">Equation&nbsp;12</a> show the initial covariances for both methods, where each covariance represents the same sensor uncertainty.</p>
 <p><span id="eq-P_RTN"><span class="math display">\[
 \mathbf{P}_{0,\text{RTN}} =
 \begin{bmatrix}
@@ -273,7 +273,7 @@ Figure&nbsp;3: Chief-Deputy Formation Initial Conditions. <em>Diagram generated 
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>Let’s jump straight to the most revealing plot showing how the linear covariance propagation fail for the RIC frame.</p>
+<p>Let’s jump straight to the most revealing plot showing how the linear covariance propagation fails for the RIC frame.</p>
 <div id="fig-ric_gif" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ric_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -284,7 +284,7 @@ Figure&nbsp;4: Radial/In-Track Dispersion Over 100 Orbits.
 </figcaption>
 </figure>
 </div>
-<p>Over the 100 orbit simulation, the initial Gaussian distribution becomes completely “bananafied”, no longer taking the form of a Gaussian distribution. In <a href="#fig-ric_gif" class="quarto-xref">Figure&nbsp;4</a>, the blue points represent the Monte Carlo samples, and the red ellipse represents the current <span class="math inline">\(3\sigma\)</span> ellipse produced by the linear covariance propagator. The error becomes noticable by the fifth orbit and continues to grow from then on, with some samples having more than 2.5 meters of error from there expected state. <a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> provides the full state evolution over the simulation.</p>
+<p>Over the 100 orbit simulation, the initial Gaussian distribution becomes completely “bananafied”, no longer taking the form of a Gaussian distribution. In <a href="#fig-ric_gif" class="quarto-xref">Figure&nbsp;4</a>, the blue points represent the Monte Carlo samples, and the red ellipse represents the current <span class="math inline">\(3\sigma\)</span> ellipse produced by the linear covariance propagator. The error becomes noticeable by the fifth orbit and continues to grow from then on, with some samples having more than 2.5 meters of error from their expected state. <a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> provides the full state evolution over the simulation.</p>
 <div id="fig-ric_time" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ric_time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -295,7 +295,7 @@ Figure&nbsp;5: RIC Frame State Evolution.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> shows that all of the components follow a linear trend except for the Radial state, which is nonlinear. We will revisit why this happens but before that, lets look at how the ROE framework performs. <a href="#fig-roe_gif" class="quarto-xref">Figure&nbsp;6</a> shows the same distribution over 100 orbits, but this time represented using ROEs.</p>
+<p><a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a> shows that all of the components follow a linear trend except for the Radial state, which is nonlinear. We will revisit why this happens but before that, let’s look at how the ROE framework performs. <a href="#fig-roe_gif" class="quarto-xref">Figure&nbsp;6</a> shows the same distribution over 100 orbits, but this time represented using ROEs.</p>
 <div id="fig-roe_gif" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-roe_gif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -320,7 +320,7 @@ Figure&nbsp;7: ROE Frame State Evolution.
 </section>
 <section id="why-cw-framework-breaks-down" class="level2">
 <h2 class="anchored" data-anchor-id="why-cw-framework-breaks-down">Why CW Framework Breaks Down</h2>
-<p>Now let’s answer the why behind this problem. Mathematically, linear covariance propagation truncates the Taylor series expansion of the two-body equations of motion at first order, ignoring higher-order nonlinear terms. This truncation makes how we choose our coordinates critical to how well a linear model will track the true dynamics. In the CW framework, the dynamics are linearized around a circular chief orbit, assuming small offsets in a rotating RIC frame. These assumptions are valid for short time horizons, but as the time horizon evolves and separation increases, the truncated nonlinear terms become more present in the true system dynamics. As a result, the sample cloud bends into a “banana” shape. This is why we see the nonlinear Radial state in <a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a>, as the In-Track seperation increases, the Deputy’s true path curves downward in the Radial direction. <a href="#fig-ric_2" class="quarto-xref">Figure&nbsp;8</a> shows the distribution of the propagated states in a formation with 10 m separation. We can see that the nonlinear terms don’t have a noticeable effect until later in the simulation, which is what we would expect.</p>
+<p>Now let’s answer the why behind this problem. Mathematically, linear covariance propagation truncates the Taylor series expansion of the two-body equations of motion at first order, ignoring higher-order nonlinear terms. This truncation makes how we choose our coordinates critical to how well a linear model will track the true dynamics. In the CW framework, the dynamics are linearized around a circular chief orbit, assuming small offsets in a rotating RIC frame. These assumptions are valid for short time horizons, but as the time horizon evolves and separation increases, the truncated nonlinear terms become more present in the true system dynamics. As a result, the sample cloud bends into a “banana” shape. This is why we see the nonlinear Radial state in <a href="#fig-ric_time" class="quarto-xref">Figure&nbsp;5</a>, as the In-Track separation increases, the Deputy’s true path curves downward in the Radial direction. <a href="#fig-ric_2" class="quarto-xref">Figure&nbsp;8</a> shows the distribution of the propagated states in a formation with 10 m separation. We can see that the nonlinear terms don’t have a noticeable effect until later in the simulation, which is what we would expect.</p>
 <div id="fig-ric_2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ric_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -347,7 +347,7 @@ Figure&nbsp;9: Orbits Thought Experiment. <em>Diagram generated with Gemini.</em
 </section>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
-<p>So what does all of this even mean? It all boils down to this, not all state representations are created the same. If this CW framework does so bad in a test like this then why is it used so frequently? As we’ve seen, in close proximity missions with a short time horizon, this method can do a good job at representing the uncertainty. It is also more simple for the everyday person to understand when compared to methods like ROEs. Everything comes with pros and cons, and it is up to the individuals planning a mission to understand the environment and decide which framework will be best for their needs.</p>
+<p>So what does all of this even mean? It all boils down to this: not all state representations are created equal. If this CW framework performs so poorly in a test like this then why is it used so frequently? As we’ve seen, for close-proximity missions over short time horizons, CW still does a solid job at representing uncertainty — and Cartesian RIC offsets are much more intuitive to visualize than orbital elements. When separations grow or you are propagating the uncertainty over longer horizons (or include J2 perturbations), switching to ROEs keeps linear covariance propagation accurate. Every framework has trade-offs, and it’s up to mission designers to understand their environment and choose the framework that fits best.</p>
 <hr>
 <div style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;">
 

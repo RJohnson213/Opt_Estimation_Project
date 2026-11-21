@@ -19,7 +19,7 @@ above, we can construct a direction cosine matrix to convert our states into the
 Another set of functions will be created to solve for the necessary State Transition Matrices in order to propagate 
 the covariance forward in time, representing the linear covariance propagation. The uncertainty in this simulation is modeled as GPS sensor noise, 
 allowing us to initialize $P_0$ as a covariance matrix formed from a GPS specification sheet. @eq-P_RTN and @eq-P_ROE show the initial 
-covariances for both methods, where each covariance represent the same sensor uncertainty.
+covariances for both methods, where each covariance represents the same sensor uncertainty.
 
 $$
 \mathbf{P}_{0,\text{RTN}} =

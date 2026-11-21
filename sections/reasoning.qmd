@@ -6,7 +6,7 @@ terms. This truncation makes how we choose our coordinates critical to how well 
 dynamics. In the CW framework, the dynamics are linearized around a circular chief orbit, assuming small 
 offsets in a rotating RIC frame. These assumptions are valid for short time horizons, but as the time horizon evolves and 
 separation increases, the truncated nonlinear terms become more present in the true system dynamics. As a result, the sample cloud 
-bends into a "banana" shape. This is why we see the nonlinear Radial state in @fig-ric_time, as the In-Track seperation increases, the Deputy's 
+bends into a "banana" shape. This is why we see the nonlinear Radial state in @fig-ric_time, as the In-Track separation increases, the Deputy's 
 true path curves downward in the Radial direction. @fig-ric_2 shows the distribution of the propagated states in a formation with 10 m separation. 
 We can see that the nonlinear terms don't have a noticeable effect until later in the simulation, which is what we would expect.
 

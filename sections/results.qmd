@@ -1,18 +1,18 @@
 ## Results
 
-Let's jump straight to the most revealing plot showing how the linear covariance propagation fail for the RIC frame. 
+Let's jump straight to the most revealing plot showing how the linear covariance propagation fails for the RIC frame. 
 
 ![Radial/In-Track Dispersion Over 100 Orbits.](images/ric_frame_propagation_animation.gif){#fig-ric_gif width="80%" fig-align="center"}
 
 Over the 100 orbit simulation, the initial Gaussian distribution becomes completely "bananafied", no longer taking the form of a Gaussian distribution. 
 In @fig-ric_gif, the blue points represent the Monte Carlo samples, and the red ellipse represents the current $3\sigma$ ellipse produced by the linear covariance 
-propagator. The error becomes noticable by the fifth orbit and continues to grow from then on, with some samples having more than 
-2.5 meters of error from there expected state. @fig-ric_time provides the full state evolution over the simulation.
+propagator. The error becomes noticeable by the fifth orbit and continues to grow from then on, with some samples having more than 
+2.5 meters of error from their expected state. @fig-ric_time provides the full state evolution over the simulation.
 
 ![RIC Frame State Evolution.](images/ric_time_history.png){#fig-ric_time width="80%" fig-align="center"}
 
 @fig-ric_time shows that all of the components follow a linear trend except for the Radial state, which is nonlinear. 
-We will revisit why this happens but before that, lets look at how the ROE framework performs. @fig-roe_gif shows the same distribution over 100 orbits, but this 
+We will revisit why this happens but before that, let's look at how the ROE framework performs. @fig-roe_gif shows the same distribution over 100 orbits, but this 
 time represented using ROEs.
 
 ![ROE Dispersion Over 100 Orbits.](images/roe_propagation_animation.gif){#fig-roe_gif width="80%" fig-align="center"}
