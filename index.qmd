@@ -7,6 +7,16 @@ format:
     theme: cosmo
     toc: false
     code-fold: true
+    include-after-body:
+      text: |
+        <div id="ai-note" class="text-muted mt-4 pt-3 border-top" style="font-size: 0.85em; opacity: 0.8;">
+          <p><strong>Note on AI Use:</strong> Gemini was used to generate the conceptual diagrams (Figures 1, 2, 3, and 9) and to assist with formatting the blog structure.</p>
+        </div>
+        <script>
+          const aiNote = document.getElementById("ai-note");
+          const target = document.querySelector('[role="doc-endnotes"]')?.parentElement || document.getElementById("quarto-document-content");
+          if (aiNote && target) target.appendChild(aiNote);
+        </script>
 ---
 
 {{< include sections/introduction.qmd >}}
@@ -22,8 +32,6 @@ format:
 {{< include sections/reasoning.qmd >}}
 
 {{< include sections/takeaways.qmd >}}
-
----
 
 ::: {style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;"}
 [^1]: Clohessy, W. H., & Wiltshire, R. S. (1960). Terminal Guidance System for Satellite Rendezvous. *Journal of the Aerospace Sciences*, 27(9), 653–658. <https://doi.org/10.2514/8.8704>

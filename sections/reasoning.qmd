@@ -14,16 +14,17 @@ We can see that the nonlinear terms don't have a noticeable effect until later i
 
 Relative Orbital Elements do a better job at handling linear propagation because their state representation aligns more closely with the geometry of an orbit compared to the rotating RIC frame. Earlier, we discussed 
 how the elements of $\mathbf{\Phi}_{ROE}$ are either static or drifting In-Track at a constant rate. The drift term $\mathbf{\Phi}_{ROE[1,0]} = -\frac{3}{2}nt$ can be understood 
-by thinking about how an object orbits Earth. A simple thought experiment to understand objects in orbit is to imagine standing at the top of the mountain throwing a ball in a world with no air resistance. 
+by thinking about how an object orbits Earth. Imagine you are standing at the top of the mountain throwing a ball in a world with no air resistance. 
 No matter how hard you throw the ball horizontally, the ball will be pulled downward due to gravity creating a parabolic trajectory. Now imagine being able to throw the ball so fast that the planet's curvature 
 downwards matches the rate at which the ball is falling. For every meter the ball drops, the planet also curves away beneath it by the same amount. When these rates match perfectly, the ball 
 will be in an orbit around the planet. 
 
 ![Orbits Thought Experiment. *Diagram generated with Gemini.*](images/orbit.jpg){#fig-orbit width="80%" fig-align="center"}
 
-The speed needed to remain in orbit around the planet decreases the further away you get. If two objects are in orbit, the second being higher than the first, 
-the second object will be moving slower than the first. If you are looking at the second object from the first, it will appear that the second object is drifting backwards. This is what $-\frac{3}{2}nt$ 
-is showing: a positive $a_c \delta a$ will result in a negative drift rate.
+The speed needed to remain in a circular orbit around the planet is defined by $v=\sqrt{\frac{\mu}{r}}$, meaning a higher orbit requireds 
+a lower orbital speed. If the Deputy is at a higher altitude than the Chief (a positive $a_c \delta a$), it will move slower along a longer path, 
+causing it to fall behind and appear to drift backward from the Chief's perspective. This is what the $-\frac{3}{2}nt$ term captures: 
+a positive $a_c \delta a$ will result in a negative In-Track drift rate.
 
 The constant terms in $\mathbf{\Phi}_{ROE}$ are expected in a two-body simulation where there are no perturbing forces except gravity. We can see that the ROE framework does a 
 really good job at representing what we would expect in a two-body simulation. As a result, the linear covariance propagation using $\mathbf{\Phi}_{ROE}$ is able to track the samples from the 

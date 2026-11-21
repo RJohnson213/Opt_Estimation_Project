@@ -259,7 +259,7 @@ Figure&nbsp;3: Chief-Deputy Formation Initial Conditions. <em>Diagram generated 
 \end{bmatrix}
 \tag{11}\]</span></span></p>
 <p><span id="eq-P_ROE"><span class="math display">\[
-\mathbf{P}_{\text{ROE},0} =
+\mathbf{P}_{0,\text{ROE}} =
 \begin{bmatrix}
 3.67765656 &amp; 0 &amp; 3.67663256 &amp; 0 &amp; 0 &amp; 0 \\
 0 &amp; 52.2462351 &amp; 0 &amp; 26.1230973 &amp; 0 &amp; 0 \\
@@ -331,7 +331,7 @@ Figure&nbsp;8: Radial/In-Track Dispersion Over 30 Orbits.
 </figcaption>
 </figure>
 </div>
-<p>Relative Orbital Elements do a better job at handling linear propagation because their state representation aligns more closely with the geometry of an orbit compared to the rotating RIC frame. Earlier, we discussed how the elements of <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> are either static or drifting In-Track at a constant rate. The drift term <span class="math inline">\(\mathbf{\Phi}_{ROE[1,0]} = -\frac{3}{2}nt\)</span> can be understood by thinking about how an object orbits Earth. A simple thought experiment to understand objects in orbit is to imagine standing at the top of the mountain throwing a ball in a world with no air resistance. No matter how hard you throw the ball horizontally, the ball will be pulled downward due to gravity creating a parabolic trajectory. Now imagine being able to throw the ball so fast that the planet’s curvature downwards matches the rate at which the ball is falling. For every meter the ball drops, the planet also curves away beneath it by the same amount. When these rates match perfectly, the ball will be in an orbit around the planet.</p>
+<p>Relative Orbital Elements do a better job at handling linear propagation because their state representation aligns more closely with the geometry of an orbit compared to the rotating RIC frame. Earlier, we discussed how the elements of <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> are either static or drifting In-Track at a constant rate. The drift term <span class="math inline">\(\mathbf{\Phi}_{ROE[1,0]} = -\frac{3}{2}nt\)</span> can be understood by thinking about how an object orbits Earth. Imagine you are standing at the top of the mountain throwing a ball in a world with no air resistance. No matter how hard you throw the ball horizontally, the ball will be pulled downward due to gravity creating a parabolic trajectory. Now imagine being able to throw the ball so fast that the planet’s curvature downwards matches the rate at which the ball is falling. For every meter the ball drops, the planet also curves away beneath it by the same amount. When these rates match perfectly, the ball will be in an orbit around the planet.</p>
 <div id="fig-orbit" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-orbit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -342,13 +342,12 @@ Figure&nbsp;9: Orbits Thought Experiment. <em>Diagram generated with Gemini.</em
 </figcaption>
 </figure>
 </div>
-<p>The speed needed to remain in orbit around the planet decreases the further away you get. If two objects are in orbit, the second being higher than the first, the second object will be moving slower than the first. If you are looking at the second object from the first, it will appear that the second object is drifting backwards. This is what <span class="math inline">\(-\frac{3}{2}nt\)</span> is showing: a positive <span class="math inline">\(a_c \delta a\)</span> will result in a negative drift rate.</p>
+<p>The speed needed to remain in a circular orbit around the planet is defined by <span class="math inline">\(v=\sqrt{\frac{\mu}{r}}\)</span>, meaning a higher orbit requireds a lower orbital speed. If the Deputy is at a higher altitude than the Chief (a positive <span class="math inline">\(a_c \delta a\)</span>), it will move slower along a longer path, causing it to fall behind and appear to drift backward from the Chief’s perspective. This is what the <span class="math inline">\(-\frac{3}{2}nt\)</span> term captures: a positive <span class="math inline">\(a_c \delta a\)</span> will result in a negative In-Track drift rate.</p>
 <p>The constant terms in <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> are expected in a two-body simulation where there are no perturbing forces except gravity. We can see that the ROE framework does a really good job at representing what we would expect in a two-body simulation. As a result, the linear covariance propagation using <span class="math inline">\(\mathbf{\Phi}_{ROE}\)</span> is able to track the samples from the Monte Carlo simulation.</p>
 </section>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
 <p>So what does all of this even mean? It all boils down to this: not all state representations are created equal. If the CW framework performs so poorly in a test like this, then why is it used so frequently? As we’ve seen, for close-proximity missions over short time horizons, CW still does a solid job at representing uncertainty — and Cartesian RIC offsets are much more intuitive to visualize than orbital elements. When separations grow or you propagate the uncertainty over longer horizons (or include <span class="math inline">\(J_2\)</span> perturbations), switching to ROEs keeps linear covariance propagation accurate. Every framework has trade-offs, and it’s up to mission designers to understand their environment and choose the framework that fits best.</p>
-<hr>
 <div style="color: #777; font-size: 0.9em; margin-top: 2rem; line-height: 1.7;">
 
 </div>
@@ -841,6 +840,14 @@ Figure&nbsp;9: Orbits Thought Experiment. <em>Diagram generated with Gemini.</em
   window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
+<div id="ai-note" class="text-muted mt-4 pt-3 border-top" style="font-size: 0.85em; opacity: 0.8;">
+  <p><strong>Note on AI Use:</strong> Gemini was used to generate the conceptual diagrams (Figures 1, 2, 3, and 9) and to assist with formatting the blog structure.</p>
+</div>
+<script>
+  const aiNote = document.getElementById("ai-note");
+  const target = document.querySelector('[role="doc-endnotes"]')?.parentElement || document.getElementById("quarto-document-content");
+  if (aiNote && target) target.appendChild(aiNote);
+</script>
 
 
 
