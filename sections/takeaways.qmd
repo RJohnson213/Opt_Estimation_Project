@@ -1,9 +1,7 @@
 ## Takeaways
 
-There 
-
-is 
-
-stuff
-
-here
+So what does all of this even mean? It all boils down to this, not all state representations are created the same. 
+If this CW framework does so bad in a test like this then why is it used so frequently? As we've seen, in close proximity 
+missions with a short time horizon, this method can do a good job at representing the uncertainty. It is also more simple 
+for the everyday person to understand when compared to methods like ROEs. Everything comes with pros and cons, and it is up to 
+the individuals planning a mission to understand the environment and decide which framework will be best for their needs.
