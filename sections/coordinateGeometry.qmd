@@ -66,8 +66,7 @@ This approach of relative orbital elements will require some understanding of ho
 A spacecraft's orbit can be defined using six elements, the Semi-Major Axis ($a$), Eccentricity ($e$), Inclination ($i$), Right Ascension of the Ascending Node ($\Omega$), Argument of Perigee ($\omega$), and the True Anomaly ($\nu$). 
 @fig-coe shows how these elements represent the shape, size, and orientation of the spacecraft's orbit in space.
 
-![Classical orbital elements. *Diagram generated with Gemini.*](images/COE.jpg){#fig-coe width="80%" fig-align="center"}
-
+![Classical orbital elements. *Diagram generated with Gemini.*](images/coe.jpg){#fig-coe width="80%" fig-align="center"}
 
 Just like how the Deputy's location in the RIC frame can be defined by some $\delta \mathbf{X}$, it can also be represented by some difference in orbital elements. 
 There are many different Relative Orbital Element sets but we will focus on the set developed by D'Amico, shown in @eq-ROE.[^2]

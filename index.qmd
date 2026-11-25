@@ -10,7 +10,7 @@ format:
     include-after-body:
       text: |
         <div id="ai-note" class="text-muted mt-4 pt-3 border-top" style="font-size: 0.85em; opacity: 0.8;">
-          <p><strong>Note on AI Use:</strong> Gemini was used to generate the conceptual diagrams (Figures 1, 2, 3, and 9) and to assist with formatting the blog structure.</p>
+          <p><strong>Note on AI Use:</strong> Gemini was used to generate the conceptual diagrams (Figures 1, 2, 3, 4, and 9) and to assist with formatting the blog structure.</p>
         </div>
         <script>
           const aiNote = document.getElementById("ai-note");
