@@ -16,7 +16,7 @@ $$
 \mathbf{P}(t) = \mathbf{\Phi}(t,t_0) \mathbf{P}_0 \mathbf{\Phi}(t,t_0)^T + \mathbf{Q} 
 $${#eq-lincov}
 
-In this equation $\mathbf{\Phi}$ represents the state transition matrix, which uses linearized dynamics to propagate state deviations from $t_0$ to $t$. 
+In this equation, $\mathbf{\Phi}$ represents the state transition matrix, which uses linearized dynamics to propagate state deviations from $t_0$ to $t$. 
 $\mathbf{P}_0$ is the covariance at $t_0$, and $\mathbf{Q}$ represents process noise to account for unmodeled perturbations, though in our scenario this will be zero because we will be modeling the system using two-body equations of motion with the only perturbation being gravity.
  @eq-lincov will do a good job at propagating the covariance forward in time given that the uncertainty remains Gaussian and that the linearized dynamics contained 
  in $\mathbf{\Phi}$ accurately represent the true system dynamics. Linear covariance propagation saves time by eliminating the need for large Monte Carlo simulations to analyze the uncertainty bounds.

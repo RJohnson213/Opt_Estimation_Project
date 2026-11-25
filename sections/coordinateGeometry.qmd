@@ -64,7 +64,12 @@ the Cross-Track component is completely decoupled from both the Radial and In-Tr
 
 This approach of relative orbital elements will require some understanding of how orbits are defined in space using classical orbital elements. 
 A spacecraft's orbit can be defined using six elements, the Semi-Major Axis ($a$), Eccentricity ($e$), Inclination ($i$), Right Ascension of the Ascending Node ($\Omega$), Argument of Perigee ($\omega$), and the True Anomaly ($\nu$). 
-These elements represent the shape, size, and orientation of the spacecraft's orbit in space. Just like how the Deputy's location in the RIC frame can be defined by some $\delta \mathbf{X}$, it can also be represented by some difference in orbital elements. 
+@fig-coe shows how these elements represent the shape, size, and orientation of the spacecraft's orbit in space.
+
+![Classical orbital elements. *Diagram generated with Gemini.*](images/COE.jpg){#fig-coe width="80%" fig-align="center"}
+
+
+Just like how the Deputy's location in the RIC frame can be defined by some $\delta \mathbf{X}$, it can also be represented by some difference in orbital elements. 
 There are many different Relative Orbital Element sets but we will focus on the set developed by D'Amico, shown in @eq-ROE.[^2]
 
 $$
@@ -108,7 +113,7 @@ $${#eq-dim_roe}
 important components to look at will be $a_c \delta a$ and $a_c \delta \lambda$, which will closely resemble the Radial and In-Track components 
 from the RIC frame. It is important to note that while the In-Track component in the RIC frame is literally "forward" or "backward" in space, 
 $a_c \delta \lambda$ represents the actual progression in orbit. We will skip the lengthy derivation and jump straight to $\mathbf{\Phi}_{ROE}$ as developed by D’Amico.[^3]
-This formulation was derived such that it accounts for $J_2$ perturbations, making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
+This formulation was derived such that it accounts for $J_2$ perturbations (caused by the non-spherical shape of the Earth), making it very useful in Low Earth Orbit (LEO). For the purposes of this study, we will set 
 the $J_2$ terms to zero in our tests to keep the comparison the same with our unperturbed two-body setup, resulting in @eq-ROE_stm.
 
 $$
